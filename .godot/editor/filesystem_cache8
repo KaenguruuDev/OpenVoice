@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1700055611
+::res://::1700056041
 icon.svg::CompressedTexture2D::5018621780947215559::1700054294::1700055503::1::::<><>::
-Launch.tscn::PackedScene::3876435727022987058::1700055601::0::1::::<><>::
+Launch.tscn::PackedScene::3876435727022987058::1700055949::0::1::::<><>::res://scripts/Launch.cs
 license.txt::TextFile::-1::1700054900::0::1::::<><>::
 logo.png::CompressedTexture2D::3177356501776033151::1700054294::1700055503::1::::<><>::
 main_window.tscn::PackedScene::4397646653968150998::1700054294::0::1::::<><>::
@@ -27,4 +27,5 @@ venom_light.json::JSON::-1::1700054294::0::1::::<><>::
 primary_outlines.png::CompressedTexture2D::780539772511309731::1700054294::1700055503::1::::<><>::
 secondary_background_elements.png::CompressedTexture2D::5107591695220058078::1700054294::1700055503::1::::<><>::
 test.png::CompressedTexture2D::8552465088800656338::1700054294::1700055503::1::::<><>::
-::res://scripts/::1700055598
+::res://scripts/::1700055633
+Launch.cs::CSharpScript::-1::1700055835::0::1::::<><>::
