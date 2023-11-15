@@ -5,13 +5,14 @@ using System.Runtime.CompilerServices;
 
 namespace OpenVoice
 {
-	public partial class LogIn : Page
+	public partial class LogIn : Node2D
 	{
 		private string UsernameInput;
 
 		public override void _Ready()
 		{
-			UpdateTheme(GetParent<Home>().GetUserDataInstance().GetTheme());
+			GetNode<Button>("Buttons/VBoxContainer/Other/Confirm").Pressed += ConfirmLogin;
+			GetNode<Button>("Buttons/VBoxContainer/Other/Cancel").Pressed += ReturnToHome;
 		}
 
         public override void _Process(double delta)
@@ -19,7 +20,7 @@ namespace OpenVoice
 
 		}
 
-		protected override void UpdateTheme(Theme NewTheme)
+		public void UpdateTheme(Theme NewTheme)
 		{
 			RenderingServer.SetDefaultClearColor(NewTheme.GetColor(Theme.Palette.BACKGROUND));
 			foreach (Button Btn in GetNode<HBoxContainer>("Buttons/VBoxContainer/Other").GetChildren())
@@ -35,6 +36,10 @@ namespace OpenVoice
 		{
 			UsernameInput = NewName;
 		}
+
+		private void ReturnToHome() { GetParent<Home>().ShowHome(); }
+
+		private void ConfirmLogin() { PasswordSubmitted(GetNode<LineEdit>("Username").Text); }
 
 		public void PasswordSubmitted(string Password)
 		{

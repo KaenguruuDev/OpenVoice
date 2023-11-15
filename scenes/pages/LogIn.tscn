@@ -119,5 +119,6 @@ theme_override_fonts/font = SubResource("SystemFont_i8i1s")
 placeholder_text = " Password"
 secret = true
 
+[connection signal="pressed" from="Buttons/VBoxContainer/Other/Confirm" to="." method="ConfirmLogIn"]
 [connection signal="text_changed" from="Username" to="." method="UsernameInputChanged"]
 [connection signal="text_submitted" from="Password" to="." method="PasswordSubmitted"]

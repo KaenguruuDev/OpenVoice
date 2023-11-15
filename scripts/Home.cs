@@ -3,7 +3,7 @@ using Godot;
 
 namespace OpenVoice
 {
-	public partial class Home : Page
+	public partial class Home : Node2D
 	{
 		private UserData UserDataInstance;
 
@@ -16,19 +16,19 @@ namespace OpenVoice
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, false);
 			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 
-			PackedScene Controls = GD.Load<PackedScene>("res://scenes/pages/Home.tscn");
-			CurrentWindowControls = Controls.Instantiate<Node2D>();
-			AddChild(CurrentWindowControls);
-
 			UserDataInstance = GetNode<UserData>("/root/UserData");
 			UpdateTheme(UserDataInstance.GetTheme());
 
-			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/LogIn").Pressed += ShowLoginPage;
-			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/SignUp").Pressed += ShowSignUpPage;
+			GetNode<SignUp>("SignUp").UpdateTheme(UserDataInstance.GetTheme());
+			GetNode<LogIn>("LogIn").UpdateTheme(UserDataInstance.GetTheme());
+			UpdateTheme(UserDataInstance.GetTheme());
+
+			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/LogIn").Pressed += ShowLogin;
+			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/SignUp").Pressed += ShowSignUp;
 		}
 
 
-		protected override void UpdateTheme(Theme NewTheme)
+		public void UpdateTheme(Theme NewTheme)
 		{
 			RenderingServer.SetDefaultClearColor(NewTheme.GetColor(Theme.Palette.BACKGROUND));
 			foreach (Control Ctrl in GetNode<VBoxContainer>("HomeControls/Buttons/VBoxContainer").GetChildren())
@@ -48,24 +48,12 @@ namespace OpenVoice
 
 		}
 
-		public void RequestPageChange(string ScenePath)
-		{
-			PackedScene Controls = GD.Load<PackedScene>(ScenePath);
-			CurrentWindowControls.QueueFree();
-			CurrentWindowControls = Controls.Instantiate<Node2D>();
-			((Page) CurrentWindowControls).ForceUpdateTheme(UserDataInstance.GetTheme());
-			AddChild(CurrentWindowControls);
-		}
-
-		private void ShowLoginPage()
-		{
-			RequestPageChange("res://scenes/pages/LogIn.tscn");
-		}
-
-		private void ShowSignUpPage()
-		{
-			RequestPageChange("res://scenes/pages/SignUp.tscn");
-		}
+		public void ShowLogin()
+		{ GetNode<Node2D>("LogIn").Show(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); }
+		public void ShowSignUp()
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Show(); GetNode<Node2D>("HomeControls").Hide(); }
+		public void ShowHome()
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Show(); }
 
 		public UserData GetUserDataInstance()
 		{ return UserDataInstance; }

@@ -3,7 +3,7 @@ using CredentialManagement;
 
 namespace OpenVoice
 {
-	public partial class SignUp : Page
+	public partial class SignUp : Node2D
 	{
 		private void SaveData(string Username, string Password)
 		{
@@ -18,7 +18,6 @@ namespace OpenVoice
 		}
 		public override void _Ready()
 		{
-			UpdateTheme(GetParent<Home>().GetUserDataInstance().GetTheme());
 			GetNode<Button>("Buttons/VBoxContainer/Other/Confirm").Pressed += ConfirmSignUp;
 			GetNode<Button>("Buttons/VBoxContainer/Other/Cancel").Pressed += ReturnToHome;
 		}
@@ -28,7 +27,7 @@ namespace OpenVoice
 			
 		}
 
-		protected override void UpdateTheme(Theme NewTheme)
+		public void UpdateTheme(Theme NewTheme)
 		{
 			RenderingServer.SetDefaultClearColor(NewTheme.GetColor(Theme.Palette.BACKGROUND));
 			foreach (Button Btn in GetNode<HBoxContainer>("Buttons/VBoxContainer/Other").GetChildren())
@@ -48,14 +47,11 @@ namespace OpenVoice
 			GetNode<Label>("WarningPasswordsNotMatching").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.ACCENT));
 		}
 
-		private void ReturnToHome()
-		{
-			GetParent<Home>().RequestPageChange("res://scenes/pages/Home.tscn");
-		}
+		private void ReturnToHome() { GetParent<Home>().ShowHome(); }
 
 		private void ConfirmSignUp()
 		{
-			GetParent<Home>().RequestPageChange("res://scenes/pages/SignUp.tscn");
+			
 		}
 	}
 }

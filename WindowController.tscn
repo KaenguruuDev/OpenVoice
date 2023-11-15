@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://b47mpdeqvv8uw"]
+[gd_scene load_steps=5 format=3 uid="uid://b47mpdeqvv8uw"]
 
 [ext_resource type="Script" path="res://scripts/Home.cs" id="1_gkv2r"]
+[ext_resource type="PackedScene" uid="uid://crw6lhw4a086s" path="res://scenes/pages/SignUp.tscn" id="2_3y233"]
+[ext_resource type="PackedScene" uid="uid://dd0isonlwav8n" path="res://scenes/pages/LogIn.tscn" id="3_f6age"]
+[ext_resource type="PackedScene" uid="uid://irbs6vtg75xe" path="res://scenes/pages/Home.tscn" id="4_fspma"]
 
 [node name="Home" type="Node2D"]
 script = ExtResource("1_gkv2r")
+
+[node name="SignUp" parent="." instance=ExtResource("2_3y233")]
+visible = false
+
+[node name="LogIn" parent="." instance=ExtResource("3_f6age")]
+visible = false
+
+[node name="HomeControls" parent="." instance=ExtResource("4_fspma")]
