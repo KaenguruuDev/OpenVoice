@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "CredentialManagement/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net35/CredentialManagement.dll": {}
+        },
+        "runtime": {
+          "lib/net35/CredentialManagement.dll": {}
+        }
+      },
       "Godot.SourceGenerators/4.1.3": {
         "type": "package",
         "build": {
@@ -40,6 +49,18 @@
     }
   },
   "libraries": {
+    "CredentialManagement/1.0.2": {
+      "sha512": "VkP04/jFXaxT3TkcRhzETYtOrznQxRmQ2J1XJdbXz47Bir7hIzPR7mFZk4GJQ4An4gozW+vonpf+iqTHomAkQw==",
+      "type": "package",
+      "path": "credentialmanagement/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "credentialmanagement.1.0.2.nupkg.sha512",
+        "credentialmanagement.nuspec",
+        "lib/net35/CredentialManagement.dll"
+      ]
+    },
     "Godot.SourceGenerators/4.1.3": {
       "sha512": "zlwbjkkdK2Rnc2e/DxB3NIKYOC/gbxxPPuawvhn13pUFGa7kEw6mytYF2NgukTTstSP+qnfp18RAc2KM1q3kLw==",
       "type": "package",
@@ -82,6 +103,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CredentialManagement >= 1.0.2",
       "Godot.SourceGenerators >= 4.1.3",
       "GodotSharp >= 4.1.3",
       "GodotSharpEditor >= 4.1.3"
@@ -131,6 +153,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "CredentialManagement": {
+            "target": "Package",
+            "version": "[1.0.2, )"
+          },
           "Godot.SourceGenerators": {
             "target": "Package",
             "version": "[4.1.3, )"
@@ -163,5 +189,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'CredentialManagement 1.0.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "CredentialManagement",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

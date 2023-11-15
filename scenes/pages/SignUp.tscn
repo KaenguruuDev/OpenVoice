@@ -1,0 +1,165 @@
+[gd_scene load_steps=9 format=3 uid="uid://crw6lhw4a086s"]
+
+[ext_resource type="Script" path="res://scripts/SignUp.cs" id="1_8gf7p"]
+[ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="2_ynwjq"]
+
+[sub_resource type="SystemFont" id="SystemFont_iwl0m"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_msib6"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_fn4xp"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_64we7"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l78bn"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="SystemFont" id="SystemFont_u8xgh"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+hinting = 2
+multichannel_signed_distance_field = true
+
+[node name="SignUp" type="Node2D"]
+script = ExtResource("1_8gf7p")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 880.0
+offset_bottom = 495.0
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(45, 34)
+texture = ExtResource("2_ynwjq")
+centered = false
+
+[node name="OpenVoice" type="Label" parent="."]
+offset_left = 45.0
+offset_top = 230.0
+offset_right = 353.0
+offset_bottom = 335.0
+theme_override_fonts/font = SubResource("SystemFont_iwl0m")
+theme_override_font_sizes/font_size = 48
+text = "Open Voice"
+vertical_alignment = 1
+
+[node name="LogInSubPanel" type="Label" parent="OpenVoice"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 308.0
+offset_bottom = 128.0
+theme_override_fonts/font = SubResource("SystemFont_msib6")
+theme_override_font_sizes/font_size = 28
+text = "Sign Up"
+vertical_alignment = 1
+
+[node name="Username" type="LineEdit" parent="."]
+offset_left = 390.0
+offset_top = 60.0
+offset_right = 790.0
+offset_bottom = 100.0
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../Buttons/VBoxContainer/Other/Cancel")
+theme_override_fonts/font = SubResource("SystemFont_fn4xp")
+placeholder_text = " Username"
+
+[node name="Password" type="LineEdit" parent="."]
+offset_left = 390.0
+offset_top = 110.0
+offset_right = 790.0
+offset_bottom = 150.0
+focus_next = NodePath("../ConfirmPassword")
+focus_previous = NodePath("../Username")
+theme_override_fonts/font = SubResource("SystemFont_fn4xp")
+placeholder_text = " Password"
+secret = true
+
+[node name="ConfirmPassword" type="LineEdit" parent="."]
+offset_left = 392.0
+offset_top = 192.0
+offset_right = 792.0
+offset_bottom = 232.0
+focus_next = NodePath("../Buttons/VBoxContainer/Other/Confirm")
+focus_previous = NodePath("../Password")
+theme_override_fonts/font = SubResource("SystemFont_fn4xp")
+placeholder_text = " Confirm Password"
+secret = true
+
+[node name="Buttons" type="CenterContainer" parent="."]
+offset_left = 390.0
+offset_top = 290.0
+offset_right = 790.0
+offset_bottom = 380.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Other" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Confirm" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_64we7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_l78bn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l78bn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l78bn")
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_64we7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_l78bn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l78bn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l78bn")
+text = "Cancel"
+
+[node name="WarningPasswordTooWeak" type="Label" parent="."]
+visible = false
+offset_left = 392.0
+offset_top = 155.0
+offset_right = 790.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_u8xgh")
+text = "Password is too weak!"
+
+[node name="WarningPasswordsNotMatching" type="Label" parent="."]
+visible = false
+offset_left = 392.0
+offset_top = 235.0
+offset_right = 790.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_u8xgh")
+text = "Passwords do not match!"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/Other/Confirm" to="." method="ConfirmSignIn"]
+[connection signal="pressed" from="Buttons/VBoxContainer/Other/Cancel" to="." method="ReturnToHome"]

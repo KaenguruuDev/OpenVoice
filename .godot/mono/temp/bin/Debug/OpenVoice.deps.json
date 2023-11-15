@@ -8,12 +8,21 @@
     ".NETCoreApp,Version=v6.0": {
       "OpenVoice/1.0.0": {
         "dependencies": {
+          "CredentialManagement": "1.0.2",
           "Godot.SourceGenerators": "4.1.3",
           "GodotSharp": "4.1.3",
           "GodotSharpEditor": "4.1.3"
         },
         "runtime": {
           "OpenVoice.dll": {}
+        }
+      },
+      "CredentialManagement/1.0.2": {
+        "runtime": {
+          "lib/net35/CredentialManagement.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
+          }
         }
       },
       "Godot.SourceGenerators/4.1.3": {},
@@ -43,6 +52,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "CredentialManagement/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VkP04/jFXaxT3TkcRhzETYtOrznQxRmQ2J1XJdbXz47Bir7hIzPR7mFZk4GJQ4An4gozW+vonpf+iqTHomAkQw==",
+      "path": "credentialmanagement/1.0.2",
+      "hashPath": "credentialmanagement.1.0.2.nupkg.sha512"
     },
     "Godot.SourceGenerators/4.1.3": {
       "type": "package",

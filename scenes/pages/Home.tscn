@@ -1,0 +1,119 @@
+[gd_scene load_steps=6 format=3 uid="uid://irbs6vtg75xe"]
+
+[ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="1_pb16g"]
+
+[sub_resource type="SystemFont" id="SystemFont_snm0s"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_2p8tg"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_r3dw7"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4vpy"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HomeControls" type="Node2D"]
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 880.0
+offset_bottom = 495.0
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(45, 34)
+texture = ExtResource("1_pb16g")
+centered = false
+
+[node name="OpenVoice" type="Label" parent="."]
+offset_left = 45.0
+offset_top = 234.0
+offset_right = 306.0
+offset_bottom = 339.0
+theme_override_fonts/font = SubResource("SystemFont_snm0s")
+theme_override_font_sizes/font_size = 48
+text = "Open Voice"
+vertical_alignment = 1
+
+[node name="HomeSubPanel" type="Label" parent="OpenVoice"]
+offset_top = 80.0
+offset_right = 308.0
+offset_bottom = 128.0
+theme_override_fonts/font = SubResource("SystemFont_2p8tg")
+theme_override_font_sizes/font_size = 28
+text = "Home"
+vertical_alignment = 1
+
+[node name="Buttons" type="CenterContainer" parent="."]
+offset_left = 424.0
+offset_right = 880.0
+offset_bottom = 479.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="AccountControls" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LogIn" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_r3dw7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
+text = "Log In"
+
+[node name="SignUp" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_r3dw7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
+text = "Sign Up"
+
+[node name="Other" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Exit" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_r3dw7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
+text = "Exit"
+
+[node name="Settings" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_r3dw7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
+text = "Settings"

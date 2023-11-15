@@ -1,8 +1,10 @@
+Label
+ColorRect
+RichTextLabel
+LineEdit
 VBoxContainer
 HBoxContainer
 CenterContainer
 Button
-Label
-ColorRect
 TextureProgressBar
 ProgressBar

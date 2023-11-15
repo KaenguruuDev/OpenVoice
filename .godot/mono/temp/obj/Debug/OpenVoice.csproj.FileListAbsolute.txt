@@ -16,3 +16,4 @@ C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\Op
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.genruntimeconfig.cache
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\ref\OpenVoice.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.sourcelink.json
+C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\CredentialManagement.dll

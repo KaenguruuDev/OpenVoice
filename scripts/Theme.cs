@@ -30,27 +30,80 @@ namespace OpenVoice
             {
                 FileAccess ThemeFile = FileAccess.Open(fPath, FileAccess.ModeFlags.Read);
                 Godot.Collections.Dictionary Data = Json.ParseString(ThemeFile.GetAsText()).AsGodotDictionary();
-                Godot.Collections.Dictionary Colors = (Godot.Collections.Dictionary) Data.GetValueOrDefault("colors");
-                
-                Background = (Color) Colors.GetValueOrDefault("background");
-                Primary = (Color) Colors.GetValueOrDefault("primary");
-                Secondary = (Color) Colors.GetValueOrDefault("secondary");
-                Accent = (Color) Colors.GetValueOrDefault("accent");
-                Text = (Color) Colors.GetValueOrDefault("text");
+                Godot.Collections.Dictionary Colors = (Godot.Collections.Dictionary)Data.GetValueOrDefault("colors");
 
-                Version = (string) Data.GetValueOrDefault("version");
-                Name = (string) Data.GetValueOrDefault("name");
-                Description = (string) Data.GetValueOrDefault("description");
+                Background = (Color)Colors.GetValueOrDefault("background");
+                Primary = (Color)Colors.GetValueOrDefault("primary");
+                Secondary = (Color)Colors.GetValueOrDefault("secondary");
+                Accent = (Color)Colors.GetValueOrDefault("accent");
+                Text = (Color)Colors.GetValueOrDefault("text");
 
-                ProjectSettings.SetSetting("display/window/size/borderless", true);
-                ProjectSettings.SetSetting("display/window/size/resizable", false);
-                RenderingServer.SetDefaultClearColor(Background);
+                Version = (string)Data.GetValueOrDefault("version");
+                Name = (string)Data.GetValueOrDefault("name");
+                Description = (string)Data.GetValueOrDefault("description");
             }
         }
 
         public Theme(Color BackGroundColor, Color PrimaryColor, Color SecondaryColor, Color AccentColor, Color TextColor)
         {
 
+        }
+
+        public Color GetColor(Palette ColorType)
+        {
+            switch (ColorType)
+            {
+                case Palette.BACKGROUND:
+                    return Background;
+                case Palette.PRIMARY:
+                    return Primary;
+                case Palette.SECONDARY:
+                    return Secondary;
+                case Palette.TEXT:
+                    return Text;
+                case Palette.ACCENT:
+                    return Accent;
+                default:
+                    return new Color("#ffffff");
+            }
+
+        }
+
+        public enum StyleBoxType
+        {
+            EMPTY,
+            FLAT,
+            LINE
+        }
+
+        public enum StyleTarget
+        {
+            BUTTON,
+            LINE_EDIT
+        }
+
+        public StyleBox GenerateStyleBoxFromTheme(StyleBoxType Type, StyleTarget Target, Palette Color)
+        {
+            if (Type == StyleBoxType.EMPTY) { return new StyleBoxEmpty(); }
+            if (Target == StyleTarget.BUTTON)
+            {
+                if (Type == StyleBoxType.FLAT)
+                {
+                    StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
+                    NewStyleBox.SetCornerRadiusAll(10);
+                    return NewStyleBox;
+                }
+            }
+            else if (Target == StyleTarget.LINE_EDIT)
+            {
+                if (Type == StyleBoxType.FLAT)
+                {
+                    StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
+                    NewStyleBox.SetCornerRadiusAll(5);
+                    return NewStyleBox;
+                }
+            }
+            return null;
         }
     }
 }
