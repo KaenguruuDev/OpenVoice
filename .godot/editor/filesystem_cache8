@@ -1,14 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1700055503
+::res://::1700055611
 icon.svg::CompressedTexture2D::5018621780947215559::1700054294::1700055503::1::::<><>::
-Launch.tscn::PackedScene::3876435727022987058::1700055463::0::1::::<><>::res://scripts/Launch.cs
+Launch.tscn::PackedScene::3876435727022987058::1700055601::0::1::::<><>::
 license.txt::TextFile::-1::1700054900::0::1::::<><>::
 logo.png::CompressedTexture2D::3177356501776033151::1700054294::1700055503::1::::<><>::
 main_window.tscn::PackedScene::4397646653968150998::1700054294::0::1::::<><>::
 README.md::TextFile::-1::1700054294::0::1::::<><>::
-::res://assets/::1700055490
+::res://assets/::1700055503
 password_security_level_bar.png::CompressedTexture2D::4319858937748647007::1700054294::1700055503::1::::<><>::
-::res://assets/logos/::1700055490
+::res://assets/logos/::1700055503
 Black and White minimalistic Logo for OpenVoice, an open source alternative to Discord.jpg::CompressedTexture2D::5641891645752100457::1700054294::1700055503::1::::<><>::
 Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_1.jpg::CompressedTexture2D::8567931422053688482::1700054294::1700055503::1::::<><>::
 Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_2.jpg::CompressedTexture2D::3148679481036437696::1700054294::1700055503::1::::<><>::
@@ -23,9 +23,8 @@ sunset.json::JSON::-1::1700054294::0::1::::<><>::
 sunset_light.json::JSON::-1::1700054294::0::1::::<><>::
 venom.json::JSON::-1::1700054294::0::1::::<><>::
 venom_light.json::JSON::-1::1700054294::0::1::::<><>::
-::res://assets/ui/::1700055490
+::res://assets/ui/::1700055503
 primary_outlines.png::CompressedTexture2D::780539772511309731::1700054294::1700055503::1::::<><>::
 secondary_background_elements.png::CompressedTexture2D::5107591695220058078::1700054294::1700055503::1::::<><>::
 test.png::CompressedTexture2D::8552465088800656338::1700054294::1700055503::1::::<><>::
-::res://scripts/::1700055432
-Launch.cs::CSharpScript::-1::1700055445::0::1::::<><>::
+::res://scripts/::1700055598
