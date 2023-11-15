@@ -1,0 +1,11 @@
+{
+	"version" : "1.0", 
+	"name" : "Venom (Light)",
+	"description" : "OpenVoice Preset (Light)",
+
+	"AccentColor" : "#44cf5e",
+	"BackgroundColor" : "#fcfdf7",
+	"PrimaryColor" : "#67cc38",
+	"SecondaryColor" : "#e7f9ea",
+	"TextColor" : "#151806"
+}

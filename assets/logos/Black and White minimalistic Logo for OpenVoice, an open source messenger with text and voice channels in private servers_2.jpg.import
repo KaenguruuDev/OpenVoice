@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bk4ij5oo8bcvw"
+path="res://.godot/imported/Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_2.jpg-9e156dc798e667b163889ec674df52f7.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/logos/Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_2.jpg"
+dest_files=["res://.godot/imported/Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_2.jpg-9e156dc798e667b163889ec674df52f7.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

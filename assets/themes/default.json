@@ -1,0 +1,11 @@
+{
+  "version": "1.1",
+  "name": "Default",
+  "description": "Default OpenVoice Theme",
+
+  "AccentColor": "#d12600",
+  "BackgroundColor": "#211313",
+  "PrimaryColor": "#ff6d4d",
+  "SecondaryColor": "#e6e6e5",
+  "TextColor": "#ffffff"
+}

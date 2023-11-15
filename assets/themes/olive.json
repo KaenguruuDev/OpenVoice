@@ -1,0 +1,11 @@
+{
+	"version" : "1.0", 
+	"name" : "Olive (Dark)",
+	"description" : "OpenVoice Preset (Dark)",
+
+	"AccentColor" : "#96b464",
+	"BackgroundColor" : "#150f1f",
+	"PrimaryColor" : "#8faf5a",
+	"SecondaryColor" : "#231934",
+	"TextColor" : "#f9f8fc"
+}

@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3wiulflo6g7g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5j5k"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="MainWindow" type="Node2D"]
+
+[node name="ServerData" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 27.0
+offset_right = 370.0
+offset_bottom = 821.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")
+
+[node name="User" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 833.0
+offset_right = 370.0
+offset_bottom = 982.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")
+
+[node name="ChannelData" type="Button" parent="."]
+offset_left = 382.0
+offset_top = 27.0
+offset_right = 1655.0
+offset_bottom = 906.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")
+
+[node name="NewMessageField" type="Button" parent="."]
+offset_left = 382.0
+offset_top = 918.0
+offset_right = 1655.0
+offset_bottom = 982.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")
+
+[node name="Users" type="Button" parent="."]
+offset_left = 1689.0
+offset_top = 27.0
+offset_right = 1886.0
+offset_bottom = 906.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")
+
+[node name="SearchOrSomething" type="Button" parent="."]
+offset_left = 1689.0
+offset_top = 918.0
+offset_right = 1886.0
+offset_bottom = 982.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k5j5k")

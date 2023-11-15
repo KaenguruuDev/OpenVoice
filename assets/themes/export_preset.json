@@ -1,0 +1,11 @@
+{
+	"version" : "1.0", 
+	"name" : "Theme Name",
+	"description" : "OpenVoice Preset",
+
+	"AccentColor" : "${accent.hex}",
+	"BackgroundColor" : "${bg.hex}",
+	"PrimaryColor" : "${primary.hex}",
+	"SecondaryColor" : "${secondary.hex}",
+	"TextColor" : "${text.hex}"
+}

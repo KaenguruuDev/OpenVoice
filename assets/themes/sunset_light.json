@@ -1,0 +1,11 @@
+{
+"version" : "1.0", 
+"name" : "Sunset (Light)",
+"description" : "OpenVoice Preset (Light)",
+
+"AccentColor" : "#dead3b",
+"BackgroundColor" : "#f6f9fe",
+"PrimaryColor" : "#836216",
+"SecondaryColor" : "#e9eefb",
+"TextColor" : "#040a1a"
+}

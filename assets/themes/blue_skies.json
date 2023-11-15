@@ -1,0 +1,11 @@
+﻿{
+  "version": "1.0",
+  "name": "Blue Night",
+  "description": "OpenVoice Preset (Dark)",
+
+  "AccentColor": "#2485C6",
+  "BackgroundColor": "#010714",
+  "PrimaryColor": "#4d8ab3",
+  "SecondaryColor": "#12181C",
+  "TextColor": "#eaeef1"
+}

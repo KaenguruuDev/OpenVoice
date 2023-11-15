@@ -1,0 +1,11 @@
+﻿{
+	"version": "1.0",
+	"name": "Blue Day",
+	"description": "OpenVoice Preset (Light)",
+
+	"AccentColor": "#399adb",
+	"BackgroundColor": "#ecf1fe",
+	"PrimaryColor": "#027dcf",
+	"SecondaryColor": "#e3e9ed",
+	"TextColor": "#0e1215"
+}
