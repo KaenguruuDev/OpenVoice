@@ -15,3 +15,4 @@ C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\re
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.pdb
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.genruntimeconfig.cache
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\ref\OpenVoice.dll
+C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.sourcelink.json

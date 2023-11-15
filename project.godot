@@ -15,10 +15,17 @@ run/main_scene="res://Launch.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UserData="*res://scripts/UserData.cs"
+
 [display]
 
-window/size/viewport_width=265
+window/size/viewport_width=260
 window/size/viewport_height=310
+window/size/resizable=false
+window/size/borderless=true
+window/size/transparent=true
 
 [dotnet]
 

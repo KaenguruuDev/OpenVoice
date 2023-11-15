@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd8u8yl5q1w2s"]
+
+[ext_resource type="Script" path="res://scripts/Home.cs" id="1_gkv2r"]
+[ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="2_o081m"]
+
+[sub_resource type="SystemFont" id="SystemFont_l3xy6"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_umv8r"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvsdv"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Home" type="Node2D"]
+script = ExtResource("1_gkv2r")
+
+[node name="BGTEMP" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(576, 130)
+texture = ExtResource("2_o081m")
+
+[node name="OpenVoice" type="Label" parent="."]
+offset_top = 230.0
+offset_right = 1152.0
+offset_bottom = 335.0
+theme_override_fonts/font = SubResource("SystemFont_l3xy6")
+theme_override_font_sizes/font_size = 48
+text = "Open Voice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="CenterContainer" parent="."]
+offset_top = 346.0
+offset_right = 1152.0
+offset_bottom = 501.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="AccountControls" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LogIn" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_umv8r")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvsdv")
+text = "Log In"
+
+[node name="SignUp" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_umv8r")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvsdv")
+text = "Sign Up"
+
+[node name="Other" type="HBoxContainer" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Exit" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_umv8r")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvsdv")
+text = "Exit"
+
+[node name="Settings" type="Button" parent="Buttons/VBoxContainer/Other"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_umv8r")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvsdv")
+text = "Settings"

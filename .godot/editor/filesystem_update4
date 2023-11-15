@@ -1,2 +1,5 @@
 res://Launch.tscn
+res://NewUser.tscn
+res://scripts/Home.cs
 res://scripts/Launch.cs
+res://scripts/UserData.cs

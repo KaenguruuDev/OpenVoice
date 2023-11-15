@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "DDS55hf3iunrARIqKGpnVgzTzosGwvOVa0PBvlz3JNJ5C0+gCdidA3lW/Ql1CrWR7G9YWC5L5llNj2wwX7KUww==",
+  "dgSpecHash": "7wLsfsdG2njoVFoFhpgarkF3tP9X1x5FZdaVDWngh/N8Pukfi1ioN3lGzhZzXdO8V6KDKta6/rdXe7brNMwW+Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kaenguruu\\Desktop\\GodotProjects\\OpenVoice\\OpenVoice.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godot.sourcegenerators\\4.1.1\\godot.sourcegenerators.4.1.1.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharp\\4.1.1\\godotsharp.4.1.1.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.1.1\\godotsharpeditor.4.1.1.nupkg.sha512"
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godot.sourcegenerators\\4.1.3\\godot.sourcegenerators.4.1.3.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharp\\4.1.3\\godotsharp.4.1.3.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.1.3\\godotsharpeditor.4.1.3.nupkg.sha512"
   ],
   "logs": []
 }

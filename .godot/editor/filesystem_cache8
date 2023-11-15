@@ -1,19 +1,24 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1700056041
+::res://::1700062801
+Home.tscn::PackedScene::4488712792652886202::1700060722::0::1::::<><>::res://scripts/Home.cs
 icon.svg::CompressedTexture2D::5018621780947215559::1700054294::1700055503::1::::<><>::
-Launch.tscn::PackedScene::3876435727022987058::1700055949::0::1::::<><>::res://scripts/Launch.cs
+Launch.tscn::PackedScene::3876435727022987058::1700062380::0::1::::<><>::res://scripts/Launch.cs<>uid://bljeuks5tlgxr::::res://logo.png<>uid://cekpwurnwu4ub::::res://assets/loading_bar.png<>uid://fi5dr0kx17lv::::res://assets/loading_bar_filled.png
 license.txt::TextFile::-1::1700054900::0::1::::<><>::
 logo.png::CompressedTexture2D::3177356501776033151::1700054294::1700055503::1::::<><>::
 main_window.tscn::PackedScene::4397646653968150998::1700054294::0::1::::<><>::
+NewUser.tscn::PackedScene::2666386230484106064::1700062380::0::1::::<><>::res://scripts/Home.cs<>uid://bljeuks5tlgxr::::res://logo.png
 README.md::TextFile::-1::1700054294::0::1::::<><>::
-::res://assets/::1700055503
+::res://assets/::1700058977
+loading.png::CompressedTexture2D::6013538243156956130::1700058394::1700058395::1::::<><>::
+loading_bar.png::CompressedTexture2D::5075191639185892221::1700058967::1700058977::1::::<><>::
+loading_bar_filled.png::CompressedTexture2D::369287039390560843::1700058976::1700058977::1::::<><>::
 password_security_level_bar.png::CompressedTexture2D::4319858937748647007::1700054294::1700055503::1::::<><>::
 ::res://assets/logos/::1700055503
 Black and White minimalistic Logo for OpenVoice, an open source alternative to Discord.jpg::CompressedTexture2D::5641891645752100457::1700054294::1700055503::1::::<><>::
 Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_1.jpg::CompressedTexture2D::8567931422053688482::1700054294::1700055503::1::::<><>::
 Black and White minimalistic Logo for OpenVoice, an open source messenger with text and voice channels in private servers_2.jpg::CompressedTexture2D::3148679481036437696::1700054294::1700055503::1::::<><>::
 ::res://assets/themes/::1700054294
-blue_skies.json::JSON::-1::1700054294::0::1::::<><>::
+blue_skies.json::JSON::-1::1700057238::0::1::::<><>::
 blue_skies_light.json::JSON::-1::1700054294::0::1::::<><>::
 default.json::JSON::-1::1700054294::0::1::::<><>::
 export_preset.json::JSON::-1::1700054294::0::1::::<><>::
@@ -27,5 +32,8 @@ venom_light.json::JSON::-1::1700054294::0::1::::<><>::
 primary_outlines.png::CompressedTexture2D::780539772511309731::1700054294::1700055503::1::::<><>::
 secondary_background_elements.png::CompressedTexture2D::5107591695220058078::1700054294::1700055503::1::::<><>::
 test.png::CompressedTexture2D::8552465088800656338::1700054294::1700055503::1::::<><>::
-::res://scripts/::1700055633
-Launch.cs::CSharpScript::-1::1700055835::0::1::::<><>::
+::res://scripts/::1700060495
+Home.cs::CSharpScript::-1::1700062379::0::1::::<><>::
+Launch.cs::CSharpScript::-1::1700062586::0::1::::<><>::
+Theme.cs::CSharpScript::-1::1700058023::0::1::::<><>::
+UserData.cs::CSharpScript::-1::1700060343::0::1::::<><>::
