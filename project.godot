@@ -15,6 +15,11 @@ run/main_scene="res://Launch.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=265
+window/size/viewport_height=310
+
 [dotnet]
 
 project/assembly_name="OpenVoice"

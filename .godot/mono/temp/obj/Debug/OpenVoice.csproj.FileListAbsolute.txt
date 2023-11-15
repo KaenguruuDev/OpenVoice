@@ -5,13 +5,10 @@ C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\Op
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\GodotSharp.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.csproj.AssemblyReference.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.Program.resources
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.csproj.GenerateResource.cache
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.AssemblyInfoInputs.cache
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.AssemblyInfo.cs
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.csproj.CoreCompileInputs.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.sourcelink.json
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.csproj.CopyComplete
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\OpenVoice.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\obj\Debug\refint\OpenVoice.dll
