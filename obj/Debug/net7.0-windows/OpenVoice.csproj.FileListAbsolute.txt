@@ -1,8 +1,0 @@
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.csproj.AssemblyReference.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoiceApp.App.resources
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.csproj.GenerateResource.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.AssemblyInfoInputs.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.AssemblyInfo.cs
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.csproj.CoreCompileInputs.cache
-C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\obj\Debug\net7.0-windows\OpenVoice.sourcelink.json
