@@ -1,5 +1,6 @@
 using Godot;
 using CredentialManagement;
+using System.Security.Permissions;
 
 namespace OpenVoice
 {
@@ -51,7 +52,7 @@ namespace OpenVoice
 
 		private void ConfirmSignUp()
 		{
-			if (GetNode<LineEdit>("Password").Text == GetNode<LineEdit>("ConfirmPassword").Text && GetNode<TextEdit>("Username").Text != "")
+			if (GetNode<LineEdit>("Password").Text == GetNode<LineEdit>("ConfirmPassword").Text && GetNode<LineEdit>("Username").Text != "")
 			{ SaveData(GetNode<LineEdit>("Username").Text, GetNode<LineEdit>("Password").Text); }
 		}
 	}

@@ -160,6 +160,3 @@ offset_bottom = 264.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_u8xgh")
 text = "Passwords do not match!"
-
-[connection signal="pressed" from="Buttons/VBoxContainer/Other/Confirm" to="." method="ConfirmSignIn"]
-[connection signal="pressed" from="Buttons/VBoxContainer/Other/Cancel" to="." method="ReturnToHome"]

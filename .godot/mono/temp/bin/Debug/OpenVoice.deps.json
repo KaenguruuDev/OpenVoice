@@ -11,7 +11,8 @@
           "CredentialManagement": "1.0.2",
           "Godot.SourceGenerators": "4.1.3",
           "GodotSharp": "4.1.3",
-          "GodotSharpEditor": "4.1.3"
+          "GodotSharpEditor": "4.1.3",
+          "System.Security.Permissions": "8.0.0"
         },
         "runtime": {
           "OpenVoice.dll": {}
@@ -42,6 +43,33 @@
           "lib/net6.0/GodotSharpEditor.dll": {
             "assemblyVersion": "4.1.3.0",
             "fileVersion": "4.1.3.0"
+          }
+        }
+      },
+      "System.Security.Permissions/8.0.0": {
+        "dependencies": {
+          "System.Windows.Extensions": "8.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/System.Security.Permissions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "System.Windows.Extensions/8.0.0": {
+        "runtime": {
+          "lib/net6.0/System.Windows.Extensions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net6.0/System.Windows.Extensions.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
           }
         }
       }
@@ -80,6 +108,20 @@
       "sha512": "sha512-h8ZC/h9s88hRRVhe4I4ayWmoCdrqSDDEbb0i3bphhr8KblHUdrOjhLcjv8o83z5lhojFvhOgwpwpbXBtY8Hs1Q==",
       "path": "godotsharpeditor/4.1.3",
       "hashPath": "godotsharpeditor.4.1.3.nupkg.sha512"
+    },
+    "System.Security.Permissions/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v/BBylw7XevuAsHXoX9dDUUfmBIcUf7Lkz8K3ZXIKz3YRKpw8YftpSir4n4e/jDTKFoaK37AsC3xnk+GNFI1Ow==",
+      "path": "system.security.permissions/8.0.0",
+      "hashPath": "system.security.permissions.8.0.0.nupkg.sha512"
+    },
+    "System.Windows.Extensions/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Obg3a90MkOw9mYKxrardLpY2u0axDMrSmy4JCdq2cYbelM2cUwmUir5Bomvd1yxmPL9h5LVHU1tuKBZpUjfASg==",
+      "path": "system.windows.extensions/8.0.0",
+      "hashPath": "system.windows.extensions.8.0.0.nupkg.sha512"
     }
   }
 }

@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "zjqYuUFUfi3JLLH/3UENrRPqJIH4WTmNYAu21w0RysnkwBsJrMoc5mOdjl0or9MOcdmXZT83GN+B+D59S/NWVg==",
+  "dgSpecHash": "TOiKyRIrmWZgj1iNfdRNNKdVeAgcVn7iScMjnxql+ACqYP241+n4D3KsQ5hMvTg5Yo78nqloZcNuFhyjHTrJJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kaenguruu\\Desktop\\GodotProjects\\OpenVoice\\OpenVoice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\credentialmanagement\\1.0.2\\credentialmanagement.1.0.2.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\godot.sourcegenerators\\4.1.3\\godot.sourcegenerators.4.1.3.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharp\\4.1.3\\godotsharp.4.1.3.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.1.3\\godotsharpeditor.4.1.3.nupkg.sha512"
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.1.3\\godotsharpeditor.4.1.3.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\system.security.permissions\\8.0.0\\system.security.permissions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512"
   ],
   "logs": [
     {

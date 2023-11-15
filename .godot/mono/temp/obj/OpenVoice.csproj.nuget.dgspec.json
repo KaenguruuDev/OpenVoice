@@ -59,6 +59,10 @@
             "GodotSharpEditor": {
               "target": "Package",
               "version": "[4.1.3, )"
+            },
+            "System.Security.Permissions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
