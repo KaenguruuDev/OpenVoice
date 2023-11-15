@@ -14,6 +14,6 @@ public partial class Launch : Node2D
 
 	public override void _Process(double delta)
 	{
-
+		GD.Print("OH NO OH NO");
 	}
 }
