@@ -3,9 +3,9 @@ res://scenes/pages/Home.tscn
 res://scenes/pages/LogIn.tscn
 res://scenes/pages/SignUp.tscn
 res://WindowController.tscn
+res://scenes/pages/Settings.tscn
 res://scripts/Home.cs
 res://scripts/Launch.cs
 res://scripts/LogIn.cs
 res://scripts/SignUp.cs
 res://scripts/UserData.cs
-res://scenes/pages/Settings.tscn

@@ -1,3 +1,4 @@
+using System.IO;
 using Godot;
 
 namespace OpenVoice
@@ -8,6 +9,8 @@ namespace OpenVoice
 
 		private async void LoadData()
 		{
+			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
+
 			while (UserDataInstance == null) { }
 			GetTree().Root.CallDeferred("add_child", GD.Load<PackedScene>("WindowController.tscn").Instantiate());
 			QueueFree();

@@ -1,6 +1,4 @@
 using Godot;
-using CredentialManagement;
-using System.Security.Permissions;
 using System;
 
 namespace OpenVoice
@@ -10,7 +8,7 @@ namespace OpenVoice
 		private void SaveData(string Username, string Password)
 		{
 			User NewUserObj = new User(Username, Password, DateTime.Now);
-			FileAccess.Open("user://users/" + Username + ".dat", FileAccess.ModeFlags.Write);
+			FileAccess.Open("user://users/" + Username + ".dat", FileAccess.ModeFlags.Write).StoreVar(NewUserObj);
 		}
 		public override void _Ready()
 		{

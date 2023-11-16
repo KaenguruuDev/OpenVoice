@@ -28,7 +28,7 @@ namespace OpenVoice
         public static bool VerifyLogin(string Username, string Password)
         {
             if (Username == "") return false;
-            foreach (string userFile in Directory.GetFiles("user://users/"))
+            foreach (string userFile in Directory.GetFiles(OS.GetUserDataDir() + "/users/"))
             {
                 User User = (User) Godot.FileAccess.Open(userFile, Godot.FileAccess.ModeFlags.Read).GetVar().AsGodotObject();
                 if (Username == User.GetUsername() && Password == User.GetPassword()) { return true; }
