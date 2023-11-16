@@ -32,6 +32,8 @@ namespace OpenVoice
                 if (!userFile.EndsWith(".dat")) continue;
                 string[] data = FileAccess.Open("user://users/" + userFile, FileAccess.ModeFlags.Read).GetAsText().Split('\n');
                 
+                GD.Print("Found user " + data[0] + " with password " + data[1]);
+                GD.Print("Input was " + Username + " with password " + Password);
                 User LoadedUser = new User(data[0], data[1]);
                 if (Username == LoadedUser.GetUsername() && Password == LoadedUser.GetPassword()) { return true; }
             }

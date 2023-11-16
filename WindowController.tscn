@@ -18,3 +18,4 @@ visible = false
 [node name="HomeControls" parent="." instance=ExtResource("4_fspma")]
 
 [node name="Main" parent="." instance=ExtResource("5_wq1fk")]
+visible = false

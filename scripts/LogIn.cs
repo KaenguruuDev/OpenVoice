@@ -37,7 +37,7 @@ namespace OpenVoice
 
 		private void ReturnToHome() { GetParent<WindowController>().ShowHome(); }
 
-		private void ConfirmLogin() { PasswordSubmitted(GetNode<LineEdit>("Username").Text); }
+		private void ConfirmLogin() { PasswordSubmitted(GetNode<LineEdit>("Password").Text); }
 
 		public void PasswordSubmitted(string Password)
 		{

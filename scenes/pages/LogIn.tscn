@@ -49,35 +49,37 @@ offset_bottom = 495.0
 color = Color(0.164706, 0.164706, 0.164706, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(45, 34)
+position = Vector2(230, 244)
+scale = Vector2(1.8, 1.8)
 texture = ExtResource("1_8kvls")
-centered = false
 
 [node name="OpenVoice" type="Label" parent="."]
-offset_left = 45.0
-offset_top = 230.0
-offset_right = 353.0
-offset_bottom = 335.0
+offset_left = 50.0
+offset_top = 456.0
+offset_right = 425.0
+offset_bottom = 561.0
 theme_override_fonts/font = SubResource("SystemFont_oyb0i")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 69
 text = "Open Voice"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LogInSubPanel" type="Label" parent="OpenVoice"]
 layout_mode = 0
-offset_top = 80.0
-offset_right = 308.0
-offset_bottom = 128.0
+offset_top = 105.0
+offset_right = 365.0
+offset_bottom = 168.0
 theme_override_fonts/font = SubResource("SystemFont_lqhvo")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 36
 text = "Log In"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buttons" type="CenterContainer" parent="."]
-offset_left = 390.0
-offset_top = 290.0
-offset_right = 790.0
-offset_bottom = 380.0
+offset_left = 790.0
+offset_top = 650.0
+offset_right = 1590.0
+offset_bottom = 750.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
 layout_mode = 2
@@ -88,51 +90,58 @@ layout_mode = 2
 theme_override_constants/separation = 50
 
 [node name="Confirm" type="Button" parent="Buttons/VBoxContainer/Other"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_x4vuu")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_21bmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_21bmm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_21bmm")
 text = "Confirm"
 
 [node name="Cancel" type="Button" parent="Buttons/VBoxContainer/Other"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_x4vuu")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_21bmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_21bmm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_21bmm")
 text = "Cancel"
 
 [node name="Username" type="LineEdit" parent="."]
-offset_left = 390.0
-offset_top = 60.0
-offset_right = 790.0
-offset_bottom = 100.0
+offset_left = 790.0
+offset_top = 155.0
+offset_right = 1590.0
+offset_bottom = 235.0
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../Buttons/VBoxContainer/Other/Cancel")
 theme_override_fonts/font = SubResource("SystemFont_i8i1s")
+theme_override_font_sizes/font_size = 24
 placeholder_text = " Username"
 
 [node name="Password" type="LineEdit" parent="."]
-offset_left = 390.0
-offset_top = 110.0
-offset_right = 790.0
-offset_bottom = 150.0
+offset_left = 790.0
+offset_top = 260.0
+offset_right = 1590.0
+offset_bottom = 340.0
+focus_next = NodePath("../Buttons/VBoxContainer/Other/Confirm")
+focus_previous = NodePath("../Username")
 theme_override_fonts/font = SubResource("SystemFont_i8i1s")
+theme_override_font_sizes/font_size = 24
 placeholder_text = " Password"
 secret = true
 
 [node name="WrongCredentials" type="Label" parent="."]
 visible = false
-offset_left = 390.0
-offset_top = 173.0
-offset_right = 790.0
-offset_bottom = 195.0
+offset_left = 790.0
+offset_top = 370.0
+offset_right = 1190.0
+offset_bottom = 401.0
 theme_override_fonts/font = SubResource("SystemFont_u18eb")
+theme_override_font_sizes/font_size = 24
 text = "Username or Password wrong!"
 
 [connection signal="text_changed" from="Username" to="." method="UsernameInputChanged"]

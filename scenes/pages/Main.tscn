@@ -1,7 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_gfpgo"]
-[ext_resource type="PackedScene" uid="uid://cqs4ihybsp6vb" path="res://scenes/interactables/ServerListItem.tscn" id="2_got5a"]
+
+[sub_resource type="SystemFont" id="SystemFont_dwgx2"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gfpgo")
@@ -81,20 +86,15 @@ offset_bottom = 984.0
 layout_mode = 2
 theme_override_constants/separation = 60
 
-[node name="ServerListItem" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
+[node name="AddServerItem" type="Control" parent="ServerList/VBox"]
 layout_mode = 2
 
-[node name="ServerListItem2" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
+[node name="AddServer" type="Button" parent="ServerList/VBox/AddServerItem"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-
-[node name="ServerListItem3" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
-layout_mode = 2
-
-[node name="ServerListItem4" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
-layout_mode = 2
-
-[node name="ServerListItem5" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
-layout_mode = 2
-
-[node name="ServerListItem6" parent="ServerList/VBox" instance=ExtResource("2_got5a")]
-layout_mode = 2
+offset_right = 50.0
+offset_bottom = 50.0
+focus_mode = 0
+theme_override_fonts/font = SubResource("SystemFont_dwgx2")
+theme_override_font_sizes/font_size = 36
+text = "+"

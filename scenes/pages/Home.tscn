@@ -35,34 +35,36 @@ offset_bottom = 495.0
 color = Color(0.164706, 0.164706, 0.164706, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(45, 34)
+position = Vector2(960, 244)
+scale = Vector2(1.8, 1.8)
 texture = ExtResource("1_pb16g")
-centered = false
 
 [node name="OpenVoice" type="Label" parent="."]
-offset_left = 45.0
-offset_top = 230.0
-offset_right = 306.0
-offset_bottom = 335.0
+offset_left = 780.0
+offset_top = 456.0
+offset_right = 1155.0
+offset_bottom = 561.0
 theme_override_fonts/font = SubResource("SystemFont_snm0s")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 69
 text = "Open Voice"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HomeSubPanel" type="Label" parent="OpenVoice"]
 layout_mode = 0
-offset_top = 80.0
-offset_right = 308.0
-offset_bottom = 128.0
+offset_top = 105.0
+offset_right = 375.0
+offset_bottom = 168.0
 theme_override_fonts/font = SubResource("SystemFont_2p8tg")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 38
 text = "Home"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buttons" type="CenterContainer" parent="."]
-offset_left = 424.0
-offset_right = 880.0
-offset_bottom = 479.0
+offset_top = 638.0
+offset_right = 1923.0
+offset_bottom = 933.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
 layout_mode = 2
@@ -73,22 +75,22 @@ layout_mode = 2
 theme_override_constants/separation = 50
 
 [node name="LogIn" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_r3dw7")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
 text = "Log In"
 
 [node name="SignUp" type="Button" parent="Buttons/VBoxContainer/AccountControls"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_r3dw7")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
@@ -99,22 +101,22 @@ layout_mode = 2
 theme_override_constants/separation = 50
 
 [node name="Exit" type="Button" parent="Buttons/VBoxContainer/Other"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_r3dw7")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
 text = "Exit"
 
 [node name="Settings" type="Button" parent="Buttons/VBoxContainer/Other"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_r3dw7")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h4vpy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h4vpy")
