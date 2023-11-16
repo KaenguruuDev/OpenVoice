@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace OpenVoice
 {
@@ -15,11 +15,10 @@ namespace OpenVoice
         public string GetPassword() { return Password; }
         public DateTime GetSessionTime() { return SessionTime; }
 
-        public User(string Username, string Password, DateTime SessionTime)
+        public User(string Username, string Password)
         {
             this.Username = Username;
             this.Password = Password;
-            this.SessionTime = SessionTime;
         }
     }
 
@@ -28,10 +27,13 @@ namespace OpenVoice
         public static bool VerifyLogin(string Username, string Password)
         {
             if (Username == "") return false;
-            foreach (string userFile in Directory.GetFiles(OS.GetUserDataDir() + "/users/"))
+            foreach (string userFile in DirAccess.GetFilesAt("user:///users/"))
             {
-                User User = (User) Godot.FileAccess.Open(userFile, Godot.FileAccess.ModeFlags.Read).GetVar().AsGodotObject();
-                if (Username == User.GetUsername() && Password == User.GetPassword()) { return true; }
+                if (!userFile.EndsWith(".dat")) continue;
+                string[] data = FileAccess.Open("user://users/" + userFile, FileAccess.ModeFlags.Read).GetAsText().Split('\n');
+                
+                User LoadedUser = new User(data[0], data[1]);
+                if (Username == LoadedUser.GetUsername() && Password == LoadedUser.GetPassword()) { return true; }
             }
 
             return false;

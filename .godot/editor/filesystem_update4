@@ -9,3 +9,7 @@ res://scripts/Launch.cs
 res://scripts/LogIn.cs
 res://scripts/SignUp.cs
 res://scripts/UserData.cs
+res://scenes/pages/Main.tscn
+res://scenes/interactables/ServerListItem.tscn
+res://scripts/Main.cs
+res://scripts/WindowController.cs

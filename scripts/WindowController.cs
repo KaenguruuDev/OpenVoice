@@ -3,7 +3,7 @@ using Godot;
 
 namespace OpenVoice
 {
-	public partial class Home : Node2D
+	public partial class WindowController : Node2D
 	{
 		private UserData UserDataInstance;
 
@@ -24,6 +24,7 @@ namespace OpenVoice
 
 			GetNode<SignUp>("SignUp").UpdateTheme(UserDataInstance.GetTheme());
 			GetNode<LogIn>("LogIn").UpdateTheme(UserDataInstance.GetTheme());
+			GetNode<Main>("Main").UpdateTheme(UserDataInstance.GetTheme());
 			UpdateTheme(UserDataInstance.GetTheme());
 
 			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/LogIn").Pressed += ShowLogin;
@@ -47,18 +48,15 @@ namespace OpenVoice
 				}
 			}
 		}
-		
-		public override void _Process(double delta)
-		{
-
-		}
 
 		public void ShowLogin()
-		{ GetNode<Node2D>("LogIn").Show(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); }
+		{ GetNode<Node2D>("LogIn").Show(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); GetNode<Node2D>("Main").Hide(); }
 		public void ShowSignUp()
-		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Show(); GetNode<Node2D>("HomeControls").Hide(); }
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Show(); GetNode<Node2D>("HomeControls").Hide(); GetNode<Node2D>("Main").Hide(); }
 		public void ShowHome()
-		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Show(); }
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Show(); GetNode<Node2D>("Main").Hide(); }
+		public void ShowMain()
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); GetNode<Node2D>("Main").Show(); }
 
 		public void ExitApplication()
 		{ GetTree().Quit(); }

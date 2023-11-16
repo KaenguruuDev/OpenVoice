@@ -18,6 +18,9 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
+			DisplayServer.WindowSetSize(new Vector2I(260, 310));
+			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
+			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, true);
 			LoadData();
 		}
 

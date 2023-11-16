@@ -35,14 +35,19 @@ namespace OpenVoice
 			UsernameInput = NewName;
 		}
 
-		private void ReturnToHome() { GetParent<Home>().ShowHome(); }
+		private void ReturnToHome() { GetParent<WindowController>().ShowHome(); }
 
 		private void ConfirmLogin() { PasswordSubmitted(GetNode<LineEdit>("Username").Text); }
 
 		public void PasswordSubmitted(string Password)
 		{
 			if (SessionManager.VerifyLogin(UsernameInput, Password))
-			{ GD.Print("LOGIN SUCCESS!"); }
+			{
+				GetNode<Label>("WrongCredentials").Hide();
+				GetParent<WindowController>().ShowMain();
+			}
+			else
+			{ GetNode<Label>("WrongCredentials").Show(); }
 		}
 	}
 }

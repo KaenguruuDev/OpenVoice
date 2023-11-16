@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace OpenVoice
 {
@@ -7,8 +6,10 @@ namespace OpenVoice
 	{
 		private void SaveData(string Username, string Password)
 		{
-			User NewUserObj = new User(Username, Password, DateTime.Now);
-			FileAccess.Open("user://users/" + Username + ".dat", FileAccess.ModeFlags.Write).StoreVar(NewUserObj);
+			string Data = Username + '\n' + Password;
+
+			FileAccess.Open("user://users/" + Username + ".dat", FileAccess.ModeFlags.Write).StoreString(Data);
+			DirAccess.RemoveAbsolute("user://users/temp.txt");
 		}
 		public override void _Ready()
 		{
@@ -41,7 +42,7 @@ namespace OpenVoice
 			GetNode<Label>("WarningPasswordsNotMatching").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.ACCENT));
 		}
 
-		private void ReturnToHome() { GetParent<Home>().ShowHome(); }
+		private void ReturnToHome() { GetParent<WindowController>().ShowHome(); }
 
 		private void ConfirmSignUp()
 		{

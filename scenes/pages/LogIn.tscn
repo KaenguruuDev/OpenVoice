@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dd0isonlwav8n"]
+[gd_scene load_steps=9 format=3 uid="uid://dd0isonlwav8n"]
 
 [ext_resource type="Script" path="res://scripts/LogIn.cs" id="1_3hjkv"]
 [ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="1_8kvls"]
@@ -28,6 +28,12 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="SystemFont" id="SystemFont_i8i1s"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_u18eb"]
 font_names = PackedStringArray("Ubuntu")
 font_weight = 550
 generate_mipmaps = true
@@ -119,6 +125,15 @@ offset_bottom = 150.0
 theme_override_fonts/font = SubResource("SystemFont_i8i1s")
 placeholder_text = " Password"
 secret = true
+
+[node name="WrongCredentials" type="Label" parent="."]
+visible = false
+offset_left = 390.0
+offset_top = 173.0
+offset_right = 790.0
+offset_bottom = 195.0
+theme_override_fonts/font = SubResource("SystemFont_u18eb")
+text = "Username or Password wrong!"
 
 [connection signal="text_changed" from="Username" to="." method="UsernameInputChanged"]
 [connection signal="text_submitted" from="Password" to="." method="PasswordSubmitted"]

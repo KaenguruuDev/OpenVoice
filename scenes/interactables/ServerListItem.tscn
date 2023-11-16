@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqs4ihybsp6vb"]
+
+[ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="1_y7nwe"]
+
+[node name="ServerListItem" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(25, 25)
+texture = ExtResource("1_y7nwe")
+
+[node name="OpenServer" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+focus_mode = 0
+flat = true
