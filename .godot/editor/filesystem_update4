@@ -8,4 +8,4 @@ res://scripts/Launch.cs
 res://scripts/LogIn.cs
 res://scripts/SignUp.cs
 res://scripts/UserData.cs
-res://scenes/pages/Page.cs
+res://scenes/pages/Settings.tscn

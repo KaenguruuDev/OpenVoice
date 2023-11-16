@@ -29,6 +29,7 @@ corner_radius_bottom_left = 10
 [node name="HomeControls" type="Node2D"]
 
 [node name="BG" type="ColorRect" parent="."]
+visible = false
 offset_right = 880.0
 offset_bottom = 495.0
 color = Color(0.164706, 0.164706, 0.164706, 1)
@@ -40,15 +41,16 @@ centered = false
 
 [node name="OpenVoice" type="Label" parent="."]
 offset_left = 45.0
-offset_top = 234.0
+offset_top = 230.0
 offset_right = 306.0
-offset_bottom = 339.0
+offset_bottom = 335.0
 theme_override_fonts/font = SubResource("SystemFont_snm0s")
 theme_override_font_sizes/font_size = 48
 text = "Open Voice"
 vertical_alignment = 1
 
 [node name="HomeSubPanel" type="Label" parent="OpenVoice"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 308.0
 offset_bottom = 128.0

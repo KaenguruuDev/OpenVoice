@@ -37,6 +37,7 @@ multichannel_signed_distance_field = true
 script = ExtResource("1_3hjkv")
 
 [node name="BG" type="ColorRect" parent="."]
+visible = false
 offset_right = 880.0
 offset_bottom = 495.0
 color = Color(0.164706, 0.164706, 0.164706, 1)

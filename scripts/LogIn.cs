@@ -41,18 +41,8 @@ namespace OpenVoice
 
 		public void PasswordSubmitted(string Password)
 		{
-			if (SessionManager.VerifyLogin(UsernameInput, GenerateSecureFromStr(Password)))
+			if (SessionManager.VerifyLogin(UsernameInput, Password))
 			{ GD.Print("LOGIN SUCCESS!"); }
 		}
-
-		private SecureString GenerateSecureFromStr(string Str)
-        {
-            SecureString SecStr = new SecureString();
-            for (int i = 0; i < Str.Length; i++)
-            {
-                SecStr.AppendChar(Str[i]);
-            }
-            return SecStr;
-        }
 	}
 }

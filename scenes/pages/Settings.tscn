@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn5vxy82d0wxu"]
+
+[ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="1_d5lou"]
+
+[sub_resource type="SystemFont" id="SystemFont_uco1q"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_4o3dh"]
+font_names = PackedStringArray("Ubuntu")
+font_weight = 550
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[node name="Settings" type="Node2D"]
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(45, 34)
+texture = ExtResource("1_d5lou")
+centered = false
+
+[node name="OpenVoice" type="Label" parent="."]
+offset_left = 45.0
+offset_top = 230.0
+offset_right = 353.0
+offset_bottom = 335.0
+theme_override_fonts/font = SubResource("SystemFont_uco1q")
+theme_override_font_sizes/font_size = 48
+text = "Open Voice"
+vertical_alignment = 1
+
+[node name="SettingsSubPanel" type="Label" parent="OpenVoice"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 308.0
+offset_bottom = 128.0
+theme_override_fonts/font = SubResource("SystemFont_4o3dh")
+theme_override_font_sizes/font_size = 28
+text = "Settings"
+vertical_alignment = 1

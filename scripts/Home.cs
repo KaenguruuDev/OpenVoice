@@ -16,6 +16,9 @@ namespace OpenVoice
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, false);
 			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 
+			var screen_size = (Vector2) DisplayServer.ScreenGetSize(1);
+  			DisplayServer.WindowSetPosition((Vector2I) (screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f));
+
 			UserDataInstance = GetNode<UserData>("/root/UserData");
 			UpdateTheme(UserDataInstance.GetTheme());
 
@@ -25,6 +28,8 @@ namespace OpenVoice
 
 			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/LogIn").Pressed += ShowLogin;
 			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/SignUp").Pressed += ShowSignUp;
+
+			GetNode<Button>("HomeControls/Buttons/VBoxContainer/Other/Exit").Pressed += ExitApplication;
 		}
 
 
@@ -54,6 +59,9 @@ namespace OpenVoice
 		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Show(); GetNode<Node2D>("HomeControls").Hide(); }
 		public void ShowHome()
 		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Show(); }
+
+		public void ExitApplication()
+		{ GetTree().Quit(); }
 
 		public UserData GetUserDataInstance()
 		{ return UserDataInstance; }
