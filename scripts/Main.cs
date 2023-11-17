@@ -40,7 +40,8 @@ namespace OpenVoice
 			if (RequestHandle == null) return;
 			RequestHandler.RequestError Error = RequestHandle.SubscribeToServer(IpAdress);
 			if (Error == RequestHandler.RequestError.Ok) { GD.Print("Successfully connected to: " + IpAdress); }
-			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandle.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); }
+			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandle.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
+			RequestHandle.
 		}
 
 		public void UpdateTheme(Theme NewTheme)
