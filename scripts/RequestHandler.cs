@@ -4,6 +4,38 @@ using Godot;
 #nullable enable
 namespace OpenVoice
 {
+    public class Attachment
+    {
+        public enum Type
+        {
+            Video,
+            Image,
+            GIF,
+            TextFile
+        }
+
+        public Attachment(Type AttachmentType, byte[] Data)
+        {
+
+        }
+    }
+
+    public class Message
+    {
+        private User Author;
+        private int Id;
+        private string Message;
+
+        private List<Attachment> Attachments;
+
+        public Message(User Author, string Message, List<Attachment> Attachments)
+        {
+            this.Author = Author;
+            this.Message = Message;
+            this.Attachments = Attachments;
+        }
+    }
+
     public class Channel
     {
         public enum Type
@@ -14,10 +46,21 @@ namespace OpenVoice
 
         private Type IsOfType;
 
+        private int PrivilegeLevel;
+        private List<Message> Messages;
         private int ChannelID;
 
         public int GetId()
         { return ChannelID; }
+
+        public Message[] GetMessages()
+        { return Messages; }
+
+        public void PushMessage(Message Message)
+        {
+            if (Message.GetAuthor() == null) return;
+            
+        }
     }
 
     public class Server
@@ -72,7 +115,5 @@ namespace OpenVoice
 
         public Server? GetSubscribed()
         { return SubscribedServer; }
-
-
     }
 }
