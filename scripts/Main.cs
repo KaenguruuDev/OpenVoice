@@ -40,7 +40,18 @@ namespace OpenVoice
 			if (RequestHandle == null) return;
 			RequestHandler.RequestError Error = RequestHandle.SubscribeToServer(IpAdress);
 			if (Error == RequestHandler.RequestError.Ok) { GD.Print("Successfully connected to: " + IpAdress); }
-			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandle.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); }
+			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandle.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
+			
+			foreach (Channel ServerChannel in RequestHandle.GetSubscribed().GetChannels())
+			{
+				// ! Load Channel scene into "ChannelList/VBox"
+			}
+		}
+
+		private void LoadChennel(int ChannelID)
+		{
+			if (RequestHandle.GetSubscribed().GetChannel(ChannelID) == null) return;
+			if (RequestHandle.RequestChannelData(GetSubscribed().GetChannel(ChannelID)) != null);
 		}
 
 		public void UpdateTheme(Theme NewTheme)
