@@ -22,18 +22,21 @@ namespace OpenVoice
 
     public class Message
     {
-        private User Author;
+        private User? Author;
         private int Id;
-        private string Message;
+        private string Content;
 
         private List<Attachment> Attachments;
 
-        public Message(User Author, string Message, List<Attachment> Attachments)
+        public Message(User Author, string Content, List<Attachment> Attachments)
         {
             this.Author = Author;
-            this.Message = Message;
+            this.Content = Content;
             this.Attachments = Attachments;
         }
+
+        public User? GetAuthor()
+        { return Author; }
     }
 
     public class Channel
@@ -47,14 +50,14 @@ namespace OpenVoice
         private Type IsOfType;
 
         private int PrivilegeLevel;
-        private List<Message> Messages;
+        private List<Message>? Messages;
         private int ChannelID;
 
         public int GetId()
         { return ChannelID; }
 
-        public Message[] GetMessages()
-        { return Messages; }
+        public Message[]? GetMessages()
+        { return Messages?.ToArray(); }
 
         public void PushMessage(Message Message)
         {

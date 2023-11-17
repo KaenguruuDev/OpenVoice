@@ -1,9 +1,9 @@
+Label
 Control
+Sprite2D
 Node2D
 Button
 ScrollContainer
-Sprite2D
-Label
 VBoxContainer
 ColorRect
 RichTextLabel

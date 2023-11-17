@@ -45,13 +45,14 @@ namespace OpenVoice
 			foreach (Channel ServerChannel in RequestHandle.GetSubscribed().GetChannels())
 			{
 				// ! Load Channel scene into "ChannelList/VBox"
+
 			}
 		}
 
 		private void LoadChennel(int ChannelID)
 		{
 			if (RequestHandle.GetSubscribed().GetChannel(ChannelID) == null) return;
-			if (RequestHandle.RequestChannelData(GetSubscribed().GetChannel(ChannelID)) != null);
+			if (RequestHandle.GetSubscribed().GetChannel(ChannelID) != null) return;
 		}
 
 		public void UpdateTheme(Theme NewTheme)

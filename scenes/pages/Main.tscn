@@ -48,7 +48,7 @@ disabled = true
 offset_left = 113.0
 offset_top = 25.0
 offset_right = 363.0
-offset_bottom = 819.0
+offset_bottom = 817.0
 focus_mode = 0
 disabled = true
 
@@ -62,7 +62,7 @@ disabled = true
 
 [node name="UserDataBG" type="Button" parent="TertiaryBackgrounds"]
 offset_left = 113.0
-offset_top = 829.0
+offset_top = 827.0
 offset_right = 363.0
 offset_bottom = 984.0
 focus_mode = 0
