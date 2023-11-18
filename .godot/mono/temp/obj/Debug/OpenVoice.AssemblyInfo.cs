@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenVoice")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c0c820d2c2b4b43c06ae066995e57ec507ee9db")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenVoice")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenVoice")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

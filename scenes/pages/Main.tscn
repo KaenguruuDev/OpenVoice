@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccoh4305r58vw"]
+[gd_scene load_steps=6 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_gfpgo"]
+[ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="2_j6351"]
 
 [sub_resource type="SystemFont" id="SystemFont_dwgx2"]
 font_names = PackedStringArray("Ubuntu")
 font_weight = 550
 generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_0l0o6"]
+font_names = PackedStringArray("Ubuntu")
+hinting = 2
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_uy5kp"]
+font_names = PackedStringArray("Ubuntu")
 multichannel_signed_distance_field = true
 
 [node name="Main" type="Node2D"]
@@ -98,3 +108,44 @@ focus_mode = 0
 theme_override_fonts/font = SubResource("SystemFont_dwgx2")
 theme_override_font_sizes/font_size = 36
 text = "+"
+
+[node name="ChannelList" type="ScrollContainer" parent="."]
+offset_left = 113.0
+offset_top = 25.0
+offset_right = 363.0
+offset_bottom = 817.0
+
+[node name="VBox" type="VBoxContainer" parent="ChannelList"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UserPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 113.0
+offset_top = 827.0
+offset_right = 363.0
+offset_bottom = 984.0
+
+[node name="Username" type="Label" parent="UserPanel"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 45.0
+offset_right = 242.0
+offset_bottom = 67.0
+theme_override_fonts/font = SubResource("SystemFont_0l0o6")
+text = "Kaenguruu24"
+
+[node name="Status" type="Label" parent="UserPanel"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 67.0
+offset_right = 242.0
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0.560784, 0.560784, 0.560784, 1)
+theme_override_fonts/font = SubResource("SystemFont_uy5kp")
+text = "Developing OpenVoice"
+
+[node name="Avatar" type="Sprite2D" parent="UserPanel"]
+position = Vector2(33, 66)
+texture = ExtResource("2_j6351")

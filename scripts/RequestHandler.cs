@@ -76,10 +76,10 @@ namespace OpenVoice
             for (int i = 0; i < 15; i++)
             { Channels.Add(new Channel()); }
             for (int i = 0; i < 15; i++)
-            { Users.Add(new User("invalid","-")); }
+            { Users.Add(new User("invalid")); }
         }
 
-        public Channel GetChannel(int ID)
+        public Channel? GetChannel(int ID)
         {
             for (int i = 0; i < Channels.ToArray().Length; i++)
             {

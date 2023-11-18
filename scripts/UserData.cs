@@ -4,21 +4,15 @@ using System.Collections.Generic;
 
 namespace OpenVoice
 {
-    [Serializable]
-    public partial class User : GodotObject
+    public class User
     {
         private string Username;
-        private string Password;
-        private DateTime SessionTime;
 
         public string GetUsername() { return Username; }
-        public string GetPassword() { return Password; }
-        public DateTime GetSessionTime() { return SessionTime; }
 
-        public User(string Username, string Password)
+        public User(string Username)
         {
             this.Username = Username;
-            this.Password = Password;
         }
     }
 
@@ -31,11 +25,8 @@ namespace OpenVoice
             {
                 if (!userFile.EndsWith(".dat")) continue;
                 string[] data = FileAccess.Open("user://users/" + userFile, FileAccess.ModeFlags.Read).GetAsText().Split('\n');
-                
-                GD.Print("Found user " + data[0] + " with password " + data[1]);
-                GD.Print("Input was " + Username + " with password " + Password);
-                User LoadedUser = new User(data[0], data[1]);
-                if (Username == LoadedUser.GetUsername() && Password == LoadedUser.GetPassword()) { return true; }
+
+                if (Username == data[0] && Password == data[1]) { return true; }
             }
 
             return false;

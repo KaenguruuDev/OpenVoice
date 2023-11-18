@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace OpenVoice
@@ -82,7 +83,7 @@ namespace OpenVoice
             LINE_EDIT
         }
 
-        public StyleBox GenerateStyleBoxFromTheme(StyleBoxType Type, StyleTarget Target, Palette Color)
+        public StyleBox GenerateStyleBoxFromTheme(StyleBoxType Type, StyleTarget Target, Palette Color, Vector4I? CornerRadius = null)
         {
             if (Type == StyleBoxType.EMPTY) { return new StyleBoxEmpty(); }
             if (Target == StyleTarget.BUTTON)
@@ -90,7 +91,13 @@ namespace OpenVoice
                 if (Type == StyleBoxType.FLAT)
                 {
                     StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
-                    NewStyleBox.SetCornerRadiusAll(10);
+                    if (CornerRadius != null)
+                    {
+                        NewStyleBox.CornerRadiusTopLeft = Math.Abs((int) CornerRadius?.X);
+                        NewStyleBox.CornerRadiusTopRight = Math.Abs((int) CornerRadius?.Y);
+                        NewStyleBox.CornerRadiusBottomLeft = Math.Abs((int) CornerRadius?.Z);
+                        NewStyleBox.CornerRadiusBottomRight = Math.Abs((int) CornerRadius?.W);
+                    }
                     return NewStyleBox;
                 }
             }
