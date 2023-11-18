@@ -4,6 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="BetaSoftware.AutoDocumentation" Version="1.0.9" />
     <PackageReference Include="CredentialManagement" Version="1.0.2" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
   </ItemGroup>

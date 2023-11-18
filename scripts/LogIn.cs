@@ -30,7 +30,7 @@ namespace OpenVoice
 			}
 		}
 
-		public void UsernameInputChanged(string NewName)
+		private void UsernameInputChanged(string NewName)
 		{
 			UsernameInput = NewName;
 		}

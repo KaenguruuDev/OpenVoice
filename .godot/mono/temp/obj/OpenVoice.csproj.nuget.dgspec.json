@@ -44,6 +44,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BetaSoftware.AutoDocumentation": {
+              "target": "Package",
+              "version": "[1.0.9, )"
+            },
             "CredentialManagement": {
               "target": "Package",
               "version": "[1.0.2, )"

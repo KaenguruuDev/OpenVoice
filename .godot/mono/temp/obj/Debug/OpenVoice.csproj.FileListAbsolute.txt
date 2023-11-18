@@ -20,3 +20,4 @@ C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\Cr
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\System.Security.Permissions.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\System.Windows.Extensions.dll
 C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Kaenguruu\Desktop\GodotProjects\OpenVoice\.godot\mono\temp\bin\Debug\AutoDocumentation.dll
