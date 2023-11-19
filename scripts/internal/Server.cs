@@ -33,16 +33,22 @@ namespace OpenVoice
         {
             Dictionary Data = new Dictionary
             {
-                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(Username + DateTime.Now.ToShortTimeString())) }
+                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes("Kaenguruu" + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
             };
             string json = Json.Stringify(Data);
-            GD.Print(json);
-            string[] headers = new string[] { "Content-Type: application/json" };
-            GD.Print(Ip.IsValidIPAddress());
-            //Request.Request(Ip + ":" + Port.ToString() + "/authSession", headers, HttpClient.Method.Post, json);
-            Request.Request("https://google.com", headers, HttpClient.Method.Post, json);
+            string[] headers = new string[] { "Content-Type: application/json", "Content-Length: " + json.Length.ToString()};
+            Request.RequestCompleted += ReqComplete;
+            if (!Request.IsProcessing()) { var url = "http://127.0.0.1:9999/auth"; Request.Request(url, headers, HttpClient.Method.Post, json); }
         }
 
+        private void ReqComplete(long result, long responseCode, string[] headers, byte[] body)
+        {
+            GD.Print(body.Length);
+            var json = new Json();
+            json.Parse(body.GetStringFromUtf8());
+            var response = json.Data.AsGodotDictionary();
+            GD.Print(response);
+        }
 
         public Channel GetChannel(int ID)
         {
