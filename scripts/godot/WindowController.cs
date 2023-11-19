@@ -5,8 +5,6 @@ namespace OpenVoice
 {
 	public partial class WindowController : Node2D
 	{
-		private UserData UserDataInstance;
-
 		private Node2D CurrentWindowControls;
 
 		public override void _Ready()
@@ -19,13 +17,12 @@ namespace OpenVoice
 			var screen_size = (Vector2) DisplayServer.ScreenGetSize(1);
   			DisplayServer.WindowSetPosition((Vector2I) (screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f));
 
-			UserDataInstance = GetNode<UserData>("/root/UserData");
-			UpdateTheme(UserDataInstance.GetTheme());
+			UpdateTheme(UserData.GetTheme());
 
-			GetNode<SignUp>("SignUp").UpdateTheme(UserDataInstance.GetTheme());
-			GetNode<LogIn>("LogIn").UpdateTheme(UserDataInstance.GetTheme());
-			GetNode<Main>("Main").UpdateTheme(UserDataInstance.GetTheme());
-			UpdateTheme(UserDataInstance.GetTheme());
+			GetNode<SignUp>("SignUp").UpdateTheme(UserData.GetTheme());
+			GetNode<LogIn>("LogIn").UpdateTheme(UserData.GetTheme());
+			GetNode<Main>("Main").UpdateTheme(UserData.GetTheme());
+			UpdateTheme(UserData.GetTheme());
 
 			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/LogIn").Pressed += ShowLogin;
 			GetNode<Button>("HomeControls/Buttons/VBoxContainer/AccountControls/SignUp").Pressed += ShowSignUp;
@@ -60,8 +57,5 @@ namespace OpenVoice
 
 		public void ExitApplication()
 		{ GetTree().Quit(); }
-
-		public UserData GetUserDataInstance()
-		{ return UserDataInstance; }
 	}
 }

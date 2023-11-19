@@ -17,13 +17,13 @@ namespace OpenVoice
             { Users.Add(new User("invalid")); }
         }
 
-        public Channel? GetChannel(int ID)
+        public Channel GetChannel(int ID)
         {
             for (int i = 0; i < Channels.ToArray().Length; i++)
             {
                 if (Channels[i].GetId() == ID) return Channels[i];
             }
-            return null;
+            return new Channel();
         }
 
         public Channel[] GetChannels()

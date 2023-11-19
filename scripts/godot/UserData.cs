@@ -2,19 +2,7 @@ using Godot;
 
 namespace OpenVoice
 {
-    public class User
-    {
-        private string Username;
-
-        public string GetUsername() { return Username; }
-
-        public User(string Username)
-        {
-            this.Username = Username;
-        }
-    }
-
-    public class SessionManager
+    public static class SessionManager
     {
         public static bool VerifyLogin(string Username, string Password)
         {
@@ -31,32 +19,26 @@ namespace OpenVoice
         }
     }
 
-    public partial class UserData : Node
+    public static class UserData
     {
-        private Theme CurrentTheme;
+        private static Theme CurrentTheme;
 
-        public override void _Ready()
-        {
-            LoadData();
-        }
-
-        public void LoadData()
+        public static void LoadData()
         {
             LoadSettings();
             CurrentTheme = new Theme("assets/themes/blue_skies.json");
-            GetNode<Launch>("/root/Launch").SetUserDataInstance(this);
         }
 
-        public bool LoadSettings()
+        public static bool LoadSettings()
         {
             return true;
         }
 
-        public bool TryResumeSession()
+        public static bool TryResumeSession()
         {
             return true;
         }
 
-        public Theme GetTheme() { return CurrentTheme; }
+        public static Theme GetTheme() { return CurrentTheme; }
     }
 }

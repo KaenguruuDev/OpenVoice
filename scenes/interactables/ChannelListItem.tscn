@@ -13,7 +13,6 @@ shader_parameter/AccentValue = Color(0.4, 0.4, 1, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_5si3w"]
 font_names = PackedStringArray("Ubuntu")
-font_weight = 550
 generate_mipmaps = true
 hinting = 2
 multichannel_signed_distance_field = true
@@ -34,6 +33,7 @@ texture = ExtResource("2_scoka")
 
 [node name="Channelname" type="Label" parent="."]
 clip_contents = true
+layout_mode = 0
 offset_left = 38.0
 offset_right = 250.0
 offset_bottom = 32.0

@@ -5,15 +5,13 @@ namespace OpenVoice
 {
 	public partial class Launch : Node2D
 	{
-		private UserData UserDataInstance;
-
 		// ! Implement ensure_files_exist
 
 		private async void LoadData()
 		{
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
-
-			while (UserDataInstance == null) { }
+			UserData.LoadData();
+			UpdateTheme(UserData.GetTheme());
 			GetTree().Root.CallDeferred("add_child", GD.Load<PackedScene>("WindowController.tscn").Instantiate());
 			QueueFree();
 		}
@@ -34,15 +32,6 @@ namespace OpenVoice
 		private void UpdateTheme(Theme NewTheme)
 		{
 			RenderingServer.SetDefaultClearColor(NewTheme.GetColor(Theme.Palette.BACKGROUND));
-		}
-
-
-		public void SetUserDataInstance(UserData Instance)
-		{
-			if (Instance == null) return;
-			GetNode<TextureProgressBar>("LoadingBar").Value += 15f;
-			UserDataInstance = Instance;
-			UpdateTheme(Instance.GetTheme());
 		}
 	}
 }

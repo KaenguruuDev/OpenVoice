@@ -13,7 +13,7 @@ namespace OpenVoice
             Failed
         }
         
-        private static Server? SubscribedServer;
+        private static Server SubscribedServer = new Server(-1);
 
         public static RequestError SubscribeToServer(string IpAdress)
         {
@@ -26,10 +26,10 @@ namespace OpenVoice
         public static void Unsubscribe()
         {
             // ! Implement logic for cancelling session on http server
-            SubscribedServer = null;
+            SubscribedServer = new Server(-1);
         }
 
-        public static Server? GetSubscribed()
+        public static Server GetSubscribed()
         { return SubscribedServer; }
     }
 }

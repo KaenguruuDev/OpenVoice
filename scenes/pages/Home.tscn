@@ -16,7 +16,6 @@ multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_r3dw7"]
 font_names = PackedStringArray("Ubuntu")
-font_weight = 550
 generate_mipmaps = true
 multichannel_signed_distance_field = true
 

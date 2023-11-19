@@ -1,3 +1,7 @@
+AudioStreamPlayer
+AudioStreamPlayer2D
+TextureProgressBar
+ColorRect
 Sprite2D
 Label
 Control
@@ -5,10 +9,8 @@ Node2D
 Button
 ScrollContainer
 VBoxContainer
-ColorRect
 RichTextLabel
 LineEdit
 HBoxContainer
 CenterContainer
-TextureProgressBar
 ProgressBar

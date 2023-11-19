@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Headers;
 using Godot;
 
 #nullable enable
@@ -7,9 +8,28 @@ namespace OpenVoice
 	public partial class Main : Node2D
 	{
 		private Theme? LastTheme;
+		private User? ActiveUser;
+		AudioEffectRecord? MicRecord;
+
 		public override void _Ready()
 		{
 			LoadServerSidebar();
+			MicRecord = (AudioEffectRecord) AudioServer.GetBusEffect(AudioServer.GetBusIndex("Record"), 0);
+			MicRecord.SetRecordingActive(true);
+			GD.Print(AudioServer.GetInputDeviceList());
+		}
+
+        public override void _Process(double delta)
+        {
+			AudioEffectSpectrumAnalyzerInstance AnalyzerInstance = (AudioEffectSpectrumAnalyzerInstance) AudioServer.GetBusEffectInstance(AudioServer.GetBusIndex("Record"), 1);
+			GD.Print(AnalyzerInstance.GetMagnitudeForFrequencyRange(0f, 50000f, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Max));
+			//GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value = MicRecord.GetRecording().Data[MicRecord.GetRecording().Data.Length - 1];
+        }
+
+        private void LoadUserPanel()
+		{
+			if (ActiveUser == null) return;
+
 		}
 
 		private void LoadServerSidebar()
@@ -42,7 +62,6 @@ namespace OpenVoice
 			
 			foreach (Channel ServerChannel in RequestHandler.GetSubscribed().GetChannels())
 			{
-				// ! Load Channel scene into "ChannelList/VBox"
 				ChannelListItem NewChannelListItem = GD.Load<PackedScene>("res://scenes/interactables/ChannelListItem.tscn").Instantiate<ChannelListItem>();
 				GetNode<VBoxContainer>("ChannelList/VBox").AddChild(NewChannelListItem);
 				NewChannelListItem.UpdateTheme(LastTheme);
@@ -51,8 +70,8 @@ namespace OpenVoice
 
 		private void LoadChennel(int ChannelID)
 		{
-			if (RequestHandler.GetSubscribed().GetChannel(ChannelID) == null) return;
-			if (RequestHandler.GetSubscribed().GetChannel(ChannelID) != null) return;
+			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) == null) return;
+			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null) return; // ! Implement Channel Loading
 		}
 
 		public void UpdateTheme(Theme NewTheme)
