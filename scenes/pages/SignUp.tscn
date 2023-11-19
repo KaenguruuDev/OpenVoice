@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://crw6lhw4a086s"]
 
-[ext_resource type="Script" path="res://scripts/SignUp.cs" id="1_8gf7p"]
+[ext_resource type="Script" path="res://scripts/godot/SignUp.cs" id="1_8gf7p"]
 [ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="2_ynwjq"]
 
 [sub_resource type="SystemFont" id="SystemFont_iwl0m"]

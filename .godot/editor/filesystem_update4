@@ -1,9 +1,2 @@
 res://scenes/pages/Main.tscn
 res://scenes/interactables/ChannelListItemMessage.gdshader
-res://scripts/ChannelListItem.cs
-res://scripts/Launch.cs
-res://scripts/LogIn.cs
-res://scripts/Main.cs
-res://scripts/SignUp.cs
-res://scripts/UserData.cs
-res://scripts/WindowController.cs

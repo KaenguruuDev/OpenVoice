@@ -37,15 +37,15 @@ text_channel_icon.png::CompressedTexture2D::2512259850293832420::1700264134::170
 ::res://scenes/::1700159706
 ::res://scenes/interactables/::1700315965
 ChannelListItem.tscn::PackedScene::2258816828635918664::1700265070::0::1::::<><>::res://scripts/ChannelListItem.cs<>res://scenes/interactables/ChannelListItemMessage.gdshader<>uid://bb17s154wbx5e
-ChannelListItemMessage.gdshader::Shader::-1::1700315965::0::1::::<><>::
+ChannelListItemMessage.gdshader::Shader::-1::1700351567::0::1::::<><>::
 ServerListItem.tscn::PackedScene::5934797149118135423::1700168994::0::1::::<><>::uid://dx8tvub4b73rh
 ::res://scenes/pages/::1700310354
 Home.tscn::PackedScene::596699693743661322::1700168994::0::1::::<><>::uid://bljeuks5tlgxr
 LogIn.tscn::PackedScene::7421956662015888451::1700168994::0::1::::<><>::res://scripts/LogIn.cs<>uid://bljeuks5tlgxr
-Main.tscn::PackedScene::4942598660852623844::1700310354::0::1::::<><>::res://scripts/Main.cs<>uid://dx8tvub4b73rh::::res://assets/ui/server_list_item_logo_fallback.png
+Main.tscn::PackedScene::4942598660852623844::1700351567::0::1::::<><>::res://scripts/Main.cs<>uid://dx8tvub4b73rh::::res://assets/ui/server_list_item_logo_fallback.png
 Settings.tscn::PackedScene::3362124426487947154::1700153375::0::1::::<><>::uid://bljeuks5tlgxr
 SignUp.tscn::PackedScene::6013370293298579228::1700168994::0::1::::<><>::res://scripts/SignUp.cs<>uid://bljeuks5tlgxr
-::res://scripts/::1700264661
+::res://scripts/::1700351553
 ChannelListItem.cs::CSharpScript::-1::1700264933::0::1::::<><>::
 Launch.cs::CSharpScript::-1::1700264627::0::1::::<><>::
 LogIn.cs::CSharpScript::-1::1700310138::0::1::::<><>::
@@ -55,3 +55,5 @@ SignUp.cs::CSharpScript::-1::1700266109::0::1::::<><>::
 Theme.cs::CSharpScript::-1::1700265929::0::1::::<><>::
 UserData.cs::CSharpScript::-1::1700303779::0::1::::<><>::
 WindowController.cs::CSharpScript::-1::1700266061::0::1::::<><>::
+::res://scripts/godot/::1700351542
+::res://scripts/internal/::1700351553

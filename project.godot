@@ -15,10 +15,6 @@ run/main_scene="res://Launch.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-UserData="*res://scripts/UserData.cs"
-
 [display]
 
 window/size/viewport_width=1920

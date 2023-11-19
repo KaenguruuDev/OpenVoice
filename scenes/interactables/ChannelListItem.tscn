@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://7ggna6lvjprs"]
 
-[ext_resource type="Script" path="res://scripts/ChannelListItem.cs" id="1_0i2ix"]
+[ext_resource type="Script" path="res://scripts/godot/ChannelListItem.cs" id="1_0i2ix"]
 [ext_resource type="Shader" path="res://scenes/interactables/ChannelListItemMessage.gdshader" id="2_2ygej"]
 [ext_resource type="Texture2D" uid="uid://bb17s154wbx5e" path="res://assets/ui/text_channel_icon.png" id="2_scoka"]
 

@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using System.Reflection;
 
 #nullable enable
 namespace OpenVoice
@@ -8,12 +7,9 @@ namespace OpenVoice
 	public partial class Main : Node2D
 	{
 		private Theme? LastTheme;
-
-		private RequestHandler? RequestHandle;
 		public override void _Ready()
 		{
 			LoadServerSidebar();
-			RequestHandle = new RequestHandler();
 		}
 
 		private void LoadServerSidebar()
@@ -40,12 +36,11 @@ namespace OpenVoice
 
 		private void LoadServer(string IpAdress, bool tryReconnectIfFailed = true)
 		{
-			if (RequestHandle == null) return;
-			RequestHandler.RequestError Error = RequestHandle.SubscribeToServer(IpAdress);
+			RequestHandler.RequestError Error = RequestHandler.SubscribeToServer(IpAdress);
 			if (Error == RequestHandler.RequestError.Ok) { GD.Print("Successfully connected to: " + IpAdress); }
-			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandle.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
+			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandler.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
 			
-			foreach (Channel ServerChannel in RequestHandle.GetSubscribed().GetChannels())
+			foreach (Channel ServerChannel in RequestHandler.GetSubscribed().GetChannels())
 			{
 				// ! Load Channel scene into "ChannelList/VBox"
 				ChannelListItem NewChannelListItem = GD.Load<PackedScene>("res://scenes/interactables/ChannelListItem.tscn").Instantiate<ChannelListItem>();
@@ -56,8 +51,8 @@ namespace OpenVoice
 
 		private void LoadChennel(int ChannelID)
 		{
-			if (RequestHandle.GetSubscribed().GetChannel(ChannelID) == null) return;
-			if (RequestHandle.GetSubscribed().GetChannel(ChannelID) != null) return;
+			if (RequestHandler.GetSubscribed().GetChannel(ChannelID) == null) return;
+			if (RequestHandler.GetSubscribed().GetChannel(ChannelID) != null) return;
 		}
 
 		public void UpdateTheme(Theme NewTheme)
