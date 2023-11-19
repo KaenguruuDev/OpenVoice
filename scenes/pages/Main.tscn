@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccoh4305r58vw"]
+[gd_scene load_steps=11 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/godot/Main.cs" id="1_ub5qb"]
 [ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="2_j6351"]
 [ext_resource type="Texture2D" uid="uid://dt1q2ljodasvr" path="res://assets/ui/user_panel/settings_icon.png" id="3_8dlmd"]
 [ext_resource type="Texture2D" uid="uid://b8iaxk74s7321" path="res://assets/ui/user_panel/mic_open.png" id="4_dksst"]
 [ext_resource type="Texture2D" uid="uid://byk7lvv6yu067" path="res://assets/ui/user_panel/mic_level.png" id="5_p676t"]
+[ext_resource type="Texture2D" uid="uid://b658rloe8pej1" path="res://assets/ui/user_panel/output_enabled.png" id="6_obj6q"]
 
 [sub_resource type="SystemFont" id="SystemFont_dwgx2"]
 font_names = PackedStringArray("Ubuntu")
@@ -20,6 +21,8 @@ multichannel_signed_distance_field = true
 [sub_resource type="SystemFont" id="SystemFont_uy5kp"]
 font_names = PackedStringArray("Ubuntu")
 multichannel_signed_distance_field = true
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_a6icd"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ub5qb")
@@ -154,13 +157,13 @@ position = Vector2(33, 82)
 texture = ExtResource("2_j6351")
 
 [node name="SettingsIcon" type="Sprite2D" parent="UserPanel"]
-position = Vector2(210, 130)
-scale = Vector2(0.43, 0.43)
+position = Vector2(216, 130)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_8dlmd")
 
 [node name="MicStatus" type="Sprite2D" parent="UserPanel"]
-position = Vector2(160, 130)
-scale = Vector2(0.21, 0.21)
+position = Vector2(176, 130)
+scale = Vector2(0.16, 0.16)
 texture = ExtResource("4_dksst")
 
 [node name="MicLevel" type="TextureProgressBar" parent="UserPanel/MicStatus"]
@@ -172,6 +175,14 @@ value = 41.0
 fill_mode = 3
 texture_progress = ExtResource("5_p676t")
 
+[node name="OutputEnabled" type="Sprite2D" parent="UserPanel"]
+position = Vector2(136, 130)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_obj6q")
+
 [node name="MicInput" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_a6icd")
 autoplay = true
 bus = &"Record"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

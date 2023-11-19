@@ -13,17 +13,20 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
+			ActiveUser = new User("Kaenguruu");
 			LoadServerSidebar();
+		}
+
+		private void GetMicInput()
+		{
 			MicRecord = (AudioEffectRecord) AudioServer.GetBusEffect(AudioServer.GetBusIndex("Record"), 0);
-			MicRecord.SetRecordingActive(true);
-			GD.Print(AudioServer.GetInputDeviceList());
+			AudioEffectSpectrumAnalyzerInstance AnalyzerInstance = (AudioEffectSpectrumAnalyzerInstance) AudioServer.GetBusEffectInstance(AudioServer.GetBusIndex("Record"), 1);
+			GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value = Math.Clamp((AnalyzerInstance.GetMagnitudeForFrequencyRange(0f, 50000f, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Max) * 2000f).X, GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value - 3, GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value + 3);
 		}
 
         public override void _Process(double delta)
         {
-			AudioEffectSpectrumAnalyzerInstance AnalyzerInstance = (AudioEffectSpectrumAnalyzerInstance) AudioServer.GetBusEffectInstance(AudioServer.GetBusIndex("Record"), 1);
-			GD.Print(AnalyzerInstance.GetMagnitudeForFrequencyRange(0f, 50000f, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Max));
-			//GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value = MicRecord.GetRecording().Data[MicRecord.GetRecording().Data.Length - 1];
+			GetMicInput();
         }
 
         private void LoadUserPanel()
@@ -56,7 +59,7 @@ namespace OpenVoice
 
 		private void LoadServer(string IpAdress, bool tryReconnectIfFailed = true)
 		{
-			RequestHandler.RequestError Error = RequestHandler.SubscribeToServer(IpAdress);
+			RequestHandler.RequestError Error = RequestHandler.SubscribeToServer(IpAdress, ActiveUser.GetUsername(), GetNode<HttpRequest>("HTTPRequest"));
 			if (Error == RequestHandler.RequestError.Ok) { GD.Print("Successfully connected to: " + IpAdress); }
 			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandler.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
 			

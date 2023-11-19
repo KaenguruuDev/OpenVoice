@@ -8,3 +8,4 @@ res://scripts/godot/LogIn.cs
 res://scripts/godot/Main.cs
 res://scripts/godot/SignUp.cs
 res://scripts/godot/WindowController.cs
+res://scripts/godot/Global.cs
