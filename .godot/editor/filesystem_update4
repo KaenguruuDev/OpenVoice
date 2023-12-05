@@ -1,11 +1,1 @@
 res://default_bus_layout.tres
-res://scenes/pages/Main.tscn
-res://scenes/interactables/ChannelListItemMessage.gdshader
-res://scenes/pages/Settings.tscn
-res://scripts/godot/ChannelListItem.cs
-res://scripts/godot/Global.cs
-res://scripts/godot/Launch.cs
-res://scripts/godot/LogIn.cs
-res://scripts/godot/Main.cs
-res://scripts/godot/SignUp.cs
-res://scripts/godot/WindowController.cs

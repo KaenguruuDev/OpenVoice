@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http.Headers;
 using Godot;
 
 #nullable enable
@@ -57,13 +56,21 @@ namespace OpenVoice
 			GetNode<VBoxContainer>("ServerList/VBox").MoveChild(GetNode<Control>("ServerList/VBox/AddServerItem"), GetNode<VBoxContainer>("ServerList/VBox").GetChildCount() - 1);
 		}
 
-		private void LoadServer(string IpAdress, bool tryReconnectIfFailed = true)
+		private async void LoadServer(string IpAdress, bool tryReconnectIfFailed = true)
 		{
-			RequestHandler.RequestError Error = RequestHandler.SubscribeToServer(IpAdress, ActiveUser.GetUsername(), GetNode<HttpRequest>("HTTPRequest"));
-			if (Error == RequestHandler.RequestError.Ok) { GD.Print("Successfully connected to: " + IpAdress); }
-			else if (Error == RequestHandler.RequestError.AlreadySubscribed) { RequestHandler.Unsubscribe(); if (tryReconnectIfFailed) LoadServer(IpAdress, false); return; }
-			
-			foreach (Channel ServerChannel in RequestHandler.GetSubscribed().GetChannels())
+			if (ActiveUser == null || GetNode<HttpRequest>("HTTPRequest") == null) return;
+
+			Server RequestedServer = new Server("127.0.0.1", 9999, ActiveUser, GetNode<HttpRequest>("HTTPRequest"));
+			RequestHandler.RequestError Error = await RequestHandler.SubscribeToServer(RequestedServer);
+
+			if (Error == RequestHandler.RequestError.Ok) 
+			{ 
+				GD.Print("Successfully connected to: " + IpAdress); 
+				RequestedServer.LoadData();
+			}
+			else return;
+
+			foreach (Channel ServerChannel in RequestedServer.GetChannels())
 			{
 				ChannelListItem NewChannelListItem = GD.Load<PackedScene>("res://scenes/interactables/ChannelListItem.tscn").Instantiate<ChannelListItem>();
 				GetNode<VBoxContainer>("ChannelList/VBox").AddChild(NewChannelListItem);
@@ -71,7 +78,7 @@ namespace OpenVoice
 			}
 		}
 
-		private void LoadChennel(int ChannelID)
+		private void LoadChannel(int ChannelID)
 		{
 			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) == null) return;
 			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null) return; // ! Implement Channel Loading

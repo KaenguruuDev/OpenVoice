@@ -1,7 +1,9 @@
-using System.Collections.Generic;
-using Godot;
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using Godot;
 using Godot.Collections;
 
 #nullable enable
@@ -12,42 +14,120 @@ namespace OpenVoice
         List<Channel> Channels = new List<Channel>();
         List<User> Users = new List<User>();
 
-        private int UUID;
         private string Ip;
         private int Port;
 
-        public Server(int UUID, string Ip, int Port)
+        private HttpRequest RequestInstance;
+        private User ActiveUserInstance;
+
+        public Server(string Ip, int Port, User ActiveUserInstance, HttpRequest RequestInstance)
         {
-            this.UUID = UUID;
             this.Ip = Ip;
             this.Port = Port;
 
-            for (int i = 0; i < 15; i++)
-            { Channels.Add(new Channel()); }
-            for (int i = 0; i < 15; i++)
-            { Users.Add(new User("invalid")); }
+            this.ActiveUserInstance = ActiveUserInstance;
+            this.RequestInstance = RequestInstance;
         }
 
-
-        public async void TryAuthenticate(string Username, HttpRequest Request)
+        public async Task<bool> TryAuthenticate()
         {
-            Dictionary Data = new Dictionary
+            Dictionary Data = new Dictionary()
             {
-                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes("Kaenguruu" + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
+                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
             };
-            string json = Json.Stringify(Data);
-            string[] headers = new string[] { "Content-Type: application/json", "Content-Length: " + json.Length.ToString()};
-            Request.RequestCompleted += ReqComplete;
-            if (!Request.IsProcessing()) { var url = "http://127.0.0.1:9999/auth"; Request.Request(url, headers, HttpClient.Method.Post, json); }
+
+            string jsonData = Json.Stringify(Data);
+            string[] requestHeaders = new string[] { "Content-Type: application/json", "Content-Length: " + jsonData.Length.ToString() };
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/auth";
+
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+            
+            HttpRequest.RequestCompletedEventHandler? handler = null;
+            handler = (result, responseCode, headers, body) =>
+            {
+                HandleRequestCompleted(result, responseCode, headers, body, handler, tcs);
+            };
+
+            RequestInstance.RequestCompleted += handler;
+            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Post, jsonData);
+
+            if (await Task.WhenAny(tcs.Task, Task.Delay(5000)) == tcs.Task) return await tcs.Task;
+            else return false;
         }
 
-        private void ReqComplete(long result, long responseCode, string[] headers, byte[] body)
+        private void HandleRequestCompleted(long result, long responseCode, string[] headers, byte[] body, HttpRequest.RequestCompletedEventHandler handler, TaskCompletionSource<bool> tcs)
         {
-            GD.Print(body.Length);
-            var json = new Json();
-            json.Parse(body.GetStringFromUtf8());
-            var response = json.Data.AsGodotDictionary();
-            GD.Print(response);
+                RequestInstance.RequestCompleted -= handler;
+                if (responseCode != 200) tcs.SetResult(false);
+                else
+                {
+                    var json = new Json();
+                    json.Parse(body.GetStringFromUtf8());
+                    var response = json.Data.AsGodotDictionary();
+                    tcs.SetResult(true);
+                }
+            }
+
+        public async void LoadData()
+        {
+            SyncChannels();
+        }
+
+        private async void SyncChannels()
+        {
+            if (RequestInstance == null) return;
+            Dictionary Data = new Dictionary()
+            {
+                { "token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
+            };
+
+            string jsonData = Json.Stringify(Data);
+            string[] requestHeaders = new string[] { "Content-Type: application/json", "Content-Length: " + jsonData.Length.ToString() };
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/channels";
+
+            RequestInstance.RequestCompleted += (result, responseCode, headers, body) =>
+            {
+                // It do be broken sometimes.
+                if (responseCode != 200) return;
+
+                var json = new Json();
+                json.Parse(body.GetStringFromUtf8());
+                var response = json.Data.AsGodotDictionary();
+
+                GD.Print(response);
+            };
+
+            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get, jsonData);
+        }
+
+        private async void SyncUsers()
+        {
+            if (RequestInstance == null) return;
+            Dictionary Data = new Dictionary()
+            {
+                { "token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
+            };
+
+            string jsonData = Json.Stringify(Data);
+            string[] requestHeaders = new string[] { "Content-Type: application/json", "Content-Length: " + jsonData.Length.ToString() };
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/users";
+
+            RequestInstance.RequestCompleted += (result, responseCode, headers, body) =>
+            {
+                // It do be broken sometimes.
+                if (responseCode != 200) return;
+
+                var json = new Json();
+                json.Parse(body.GetStringFromUtf8());
+                var response = json.Data.AsGodotDictionary();
+
+                GD.Print(response);
+            };
+
+            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get, jsonData);
         }
 
         public Channel GetChannel(int ID)
@@ -61,7 +141,5 @@ namespace OpenVoice
 
         public Channel[] GetChannels()
         { return Channels.ToArray(); }
-        public int GetID()
-        { return UUID; }
     }
 }

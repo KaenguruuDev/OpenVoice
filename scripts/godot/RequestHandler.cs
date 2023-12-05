@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Threading.Tasks;
 
 #nullable enable
 namespace OpenVoice
@@ -13,24 +13,24 @@ namespace OpenVoice
             Failed
         }
         
-        private static Server SubscribedServer = new Server(-1, "127.0.0.1", 0);
+        private static Server? SubscribedServer;
 
-        public static RequestError SubscribeToServer(string IpAdress, string Username, HttpRequest Request)
+        public static async Task<RequestError> SubscribeToServer(Server Server)
         {
-            if (SubscribedServer.GetID() != -1) return RequestError.AlreadySubscribed;
-            // ! Initial Handshake Logic, probably with some kind of token
-            SubscribedServer = new Server(1, "127.0.0.1", 9999);
-            SubscribedServer.TryAuthenticate(Username, Request);
-            return RequestError.Ok;
+            if (SubscribedServer != null) return RequestError.AlreadySubscribed;
+            if (await Server.TryAuthenticate())
+            {
+                SubscribedServer = Server;
+                return RequestError.Ok;
+            }
+            return RequestError.Failed;
         }
 
         public static void Unsubscribe()
         {
-            // ! Implement logic for cancelling session on http server
-            SubscribedServer = new Server(-1, "127.0.0.1", 0);
         }
 
-        public static Server GetSubscribed()
+        public static Server? GetSubscribed()
         { return SubscribedServer; }
     }
 }

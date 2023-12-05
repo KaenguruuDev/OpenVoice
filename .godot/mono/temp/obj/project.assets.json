@@ -277,11 +277,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kaenguruu\\Desktop\\GodotProjects\\OpenVoice\\OpenVoice.csproj",
+      "projectUniqueName": "C:\\Users\\Kaenguruu\\Desktop\\Godot\\OpenVoice\\OpenVoice.csproj",
       "projectName": "OpenVoice",
-      "projectPath": "C:\\Users\\Kaenguruu\\Desktop\\GodotProjects\\OpenVoice\\OpenVoice.csproj",
+      "projectPath": "C:\\Users\\Kaenguruu\\Desktop\\Godot\\OpenVoice\\OpenVoice.csproj",
       "packagesPath": "C:\\Users\\Kaenguruu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kaenguruu\\Desktop\\GodotProjects\\OpenVoice\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\Kaenguruu\\Desktop\\Godot\\OpenVoice\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\VisualStudioShared\\NuGetPackages"
