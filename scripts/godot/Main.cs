@@ -64,8 +64,8 @@ namespace OpenVoice
 			RequestHandler.RequestError Error = await RequestHandler.SubscribeToServer(RequestedServer);
 
 			if (Error == RequestHandler.RequestError.Ok) 
-			{ 
-				GD.Print("Successfully connected to: " + IpAdress); 
+			{
+				GD.Print("Successfully connected to: " + IpAdress);
 				RequestedServer.LoadData();
 			}
 			else return;

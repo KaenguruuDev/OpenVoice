@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "TW1rPWBnZV97YNtYB7pX4eoFUZdL5uQydREVCK5UOwIbwkc/1Uw1wC8sMnAVieM0KH74IWClz9phE+c/6mjlVA==",
+  "dgSpecHash": "fFWlkpcqfUXaID+ytMPodqt3+lotWO9LV2qJJcT3jW4JMebwzg11+f6GQYFEGeHxYS+4TFCbvZL4XQNDSYTHyA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kaenguruu\\Desktop\\Godot\\OpenVoice\\OpenVoice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\betasoftware.autodocumentation\\1.0.9\\betasoftware.autodocumentation.1.0.9.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\credentialmanagement\\1.0.2\\credentialmanagement.1.0.2.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godot.sourcegenerators\\4.1.3\\godot.sourcegenerators.4.1.3.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharp\\4.1.3\\godotsharp.4.1.3.nupkg.sha512",
-    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.1.3\\godotsharpeditor.4.1.3.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
+    "C:\\Users\\Kaenguruu\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\jquery\\2.1.1\\jquery.2.1.1.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\sampledependency\\1.0.0\\sampledependency.1.0.0.nupkg.sha512",
     "C:\\Users\\Kaenguruu\\.nuget\\packages\\system.security.permissions\\8.0.0\\system.security.permissions.8.0.0.nupkg.sha512",

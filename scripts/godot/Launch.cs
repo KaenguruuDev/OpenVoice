@@ -10,9 +10,10 @@ namespace OpenVoice
 		private async void LoadData()
 		{
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
+			Directory.CreateDirectory(OS.GetUserDataDir() + "/sessions");
 			UserData.LoadData();
 			UpdateTheme(UserData.GetTheme());
-			GetTree().Root.CallDeferred("add_child", GD.Load<PackedScene>("WindowController.tscn").Instantiate());
+			GetTree().Root.CallDeferred("add_child", GD.Load<PackedScene>("res://scenes/WindowController.tscn").Instantiate());
 			QueueFree();
 		}
 

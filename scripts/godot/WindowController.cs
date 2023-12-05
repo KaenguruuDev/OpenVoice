@@ -1,3 +1,4 @@
+using System.IO;
 using Godot;
 
 
@@ -9,6 +10,11 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
+			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
+			Directory.CreateDirectory(OS.GetUserDataDir() + "/sessions");
+
+			if (SessionManager.ValidSessionAvailable()) { ShowHome(); return; }
+
 			DisplayServer.WindowSetSize(new Vector2I(880, 495));
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, false);

@@ -54,15 +54,15 @@
             },
             "Godot.SourceGenerators": {
               "target": "Package",
-              "version": "[4.1.3, )"
+              "version": "[4.2.0, )"
             },
             "GodotSharp": {
               "target": "Package",
-              "version": "[4.1.3, )"
+              "version": "[4.2.0, )"
             },
             "GodotSharpEditor": {
               "target": "Package",
-              "version": "[4.1.3, )"
+              "version": "[4.2.0, )"
             },
             "System.Security.Permissions": {
               "target": "Package",

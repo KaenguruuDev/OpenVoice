@@ -77,13 +77,8 @@ namespace OpenVoice
         private async void SyncChannels()
         {
             if (RequestInstance == null) return;
-            Dictionary Data = new Dictionary()
-            {
-                { "token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
-            };
 
-            string jsonData = Json.Stringify(Data);
-            string[] requestHeaders = new string[] { "Content-Type: application/json", "Content-Length: " + jsonData.Length.ToString() };
+            string[] requestHeaders = new string[] { "Content-Type: application/json", "Token: " + Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) };
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channels";
 
@@ -99,7 +94,8 @@ namespace OpenVoice
                 GD.Print(response);
             };
 
-            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get, jsonData);
+            GD.Print("POST: " + url);
+            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get);
         }
 
         private async void SyncUsers()
@@ -127,7 +123,7 @@ namespace OpenVoice
                 GD.Print(response);
             };
 
-            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get, jsonData);
+            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Put, jsonData);
         }
 
         public Channel GetChannel(int ID)
