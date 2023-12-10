@@ -4,6 +4,8 @@ namespace OpenVoice
 {
 	public partial class ChannelListItem : Control
 	{
+		public string ChannelName;
+
 		public override void _Ready()
 		{
 

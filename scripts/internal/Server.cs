@@ -29,7 +29,7 @@ namespace OpenVoice
             this.RequestInstance = RequestInstance;
         }
 
-        public async Task<bool> TryAuthenticate()
+        public Task<bool> TryAuthenticate()
         {
             Dictionary Data = new Dictionary()
             {
@@ -42,88 +42,101 @@ namespace OpenVoice
             var url = base_url + "/auth";
 
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
-            
-            HttpRequest.RequestCompletedEventHandler? handler = null;
+
+            HttpRequest.RequestCompletedEventHandler handler = null;
             handler = (result, responseCode, headers, body) =>
             {
-                HandleRequestCompleted(result, responseCode, headers, body, handler, tcs);
+                RequestInstance.RequestCompleted -= handler;
+
+                if (responseCode != 200)
+                {
+                    tcs.SetResult(false);
+                    return;
+                }
+
+                var json = new Json();
+                json.Parse(body.GetStringFromUtf8());
+                var response = json.Data.AsGodotDictionary();
+
+                GD.Print(response);
+                tcs.SetResult(true);
             };
 
             RequestInstance.RequestCompleted += handler;
+
             RequestInstance.Request(url, requestHeaders, HttpClient.Method.Post, jsonData);
 
-            if (await Task.WhenAny(tcs.Task, Task.Delay(5000)) == tcs.Task) return await tcs.Task;
-            else return false;
+            return tcs.Task;
         }
 
-        private void HandleRequestCompleted(long result, long responseCode, string[] headers, byte[] body, HttpRequest.RequestCompletedEventHandler handler, TaskCompletionSource<bool> tcs)
+        private Variant HandleRequestCompleted(long result, long responseCode, string[] headers, byte[] body, TaskCompletionSource<Dictionary> tcs)
         {
-                RequestInstance.RequestCompleted -= handler;
-                if (responseCode != 200) tcs.SetResult(false);
-                else
-                {
-                    var json = new Json();
-                    json.Parse(body.GetStringFromUtf8());
-                    var response = json.Data.AsGodotDictionary();
-                    tcs.SetResult(true);
-                }
+            if (responseCode != 200)
+            {
+                tcs.SetResult(new Dictionary());
+                return new Dictionary();
             }
 
-        public async void LoadData()
-        {
-            SyncChannels();
+            var json = new Json();
+            json.Parse(body.GetStringFromUtf8());
+            var response = json.Data.AsGodotDictionary();
+
+            tcs.SetResult(response);
+            return response;
         }
 
-        private async void SyncChannels()
+        public async Task<bool> LoadData()
         {
-            if (RequestInstance == null) return;
+            bool result = await SyncChannels();
+            if (result) await SyncUsers();
+            return true;
+        }
+
+        private Task<Dictionary> MakeRequest(string url, HttpClient.Method method)
+        {
+            var tcs = new TaskCompletionSource<Dictionary>();
+
+            if (RequestInstance == null)
+            {
+                tcs.SetResult(new Dictionary());
+                return tcs.Task;
+            }
 
             string[] requestHeaders = new string[] { "Content-Type: application/json", "Token: " + Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) };
-            var base_url = "http://" + Ip + ":" + Port;
-            var url = base_url + "/channels";
 
-            RequestInstance.RequestCompleted += (result, responseCode, headers, body) =>
+            HttpRequest.RequestCompletedEventHandler? handler = null;
+            handler = (result, responseCode, headers, body) =>
             {
-                // It do be broken sometimes.
-                if (responseCode != 200) return;
-
-                var json = new Json();
-                json.Parse(body.GetStringFromUtf8());
-                var response = json.Data.AsGodotDictionary();
-
-                GD.Print(response);
+                RequestInstance.RequestCompleted -= handler;
+                HandleRequestCompleted(result, responseCode, headers, body, tcs);
             };
 
-            GD.Print("POST: " + url);
-            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Get);
+            RequestInstance.RequestCompleted += handler;
+
+            GD.Print(url);
+            RequestInstance.Request(url, requestHeaders, method);
+
+            return tcs.Task;
         }
 
-        private async void SyncUsers()
+        private Task<bool> SyncChannels()
         {
-            if (RequestInstance == null) return;
-            Dictionary Data = new Dictionary()
-            {
-                { "token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
-            };
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/channels";
+            var tcs = new TaskCompletionSource<bool>();
+            tcs.SetResult(MakeRequest(url, HttpClient.Method.Get).Result.Count > 0);
+            
+            return tcs.Task;
+        }
 
-            string jsonData = Json.Stringify(Data);
-            string[] requestHeaders = new string[] { "Content-Type: application/json", "Content-Length: " + jsonData.Length.ToString() };
+        private Task<bool> SyncUsers()
+        {
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/users";
-
-            RequestInstance.RequestCompleted += (result, responseCode, headers, body) =>
-            {
-                // It do be broken sometimes.
-                if (responseCode != 200) return;
-
-                var json = new Json();
-                json.Parse(body.GetStringFromUtf8());
-                var response = json.Data.AsGodotDictionary();
-
-                GD.Print(response);
-            };
-
-            RequestInstance.Request(url, requestHeaders, HttpClient.Method.Put, jsonData);
+            var tcs = new TaskCompletionSource<bool>();
+            tcs.SetResult(MakeRequest(url, HttpClient.Method.Get).Result.Count > 0);
+            
+            return tcs.Task;
         }
 
         public Channel GetChannel(int ID)
@@ -137,5 +150,8 @@ namespace OpenVoice
 
         public Channel[] GetChannels()
         { return Channels.ToArray(); }
+
+        public User[] GetUsers()
+        { return Users.ToArray(); }
     }
 }

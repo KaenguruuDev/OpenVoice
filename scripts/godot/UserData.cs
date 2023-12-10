@@ -25,9 +25,8 @@ namespace OpenVoice
             
             data = Convert.FromBase64String(token);
             string DecodedToken = Encoding.UTF8.GetString(data);
-            GD.Print(DecodedToken);
 
-            if (DecodedUser == LatestUser && DateTime.Now.ToUniversalTime().Ticks - DateTime.Parse(DecodedToken).ToUniversalTime().Ticks < 9000)
+            if (DecodedUser == LatestUser && DateTime.Now.ToUniversalTime().Ticks - DateTime.FromFileTime((long) Convert.ToDouble(DecodedToken)).ToUniversalTime().Ticks < 9000)
             { return true; }
 
             return false;

@@ -13,7 +13,7 @@ namespace OpenVoice
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/sessions");
 
-			if (SessionManager.ValidSessionAvailable()) { ShowHome(); return; }
+			if (SessionManager.ValidSessionAvailable()) { ShowMain(); }
 
 			DisplayServer.WindowSetSize(new Vector2I(880, 495));
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
@@ -21,7 +21,7 @@ namespace OpenVoice
 			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 
 			var screen_size = (Vector2) DisplayServer.ScreenGetSize(1);
-  			DisplayServer.WindowSetPosition((Vector2I) (screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f));
+  			DisplayServer.WindowSetPosition((Vector2I) (screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f) + new Vector2I(1920, 0));
 
 			UpdateTheme(UserData.GetTheme());
 

@@ -11,15 +11,18 @@
 font_names = PackedStringArray("Ubuntu")
 font_weight = 550
 generate_mipmaps = true
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_0l0o6"]
 font_names = PackedStringArray("Ubuntu")
 hinting = 2
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_uy5kp"]
 font_names = PackedStringArray("Ubuntu")
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_a6icd"]

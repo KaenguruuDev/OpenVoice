@@ -66,7 +66,8 @@ namespace OpenVoice
 			if (Error == RequestHandler.RequestError.Ok) 
 			{
 				GD.Print("Successfully connected to: " + IpAdress);
-				RequestedServer.LoadData();
+				var result = await RequestedServer.LoadData();
+				if (! result) return;
 			}
 			else return;
 
