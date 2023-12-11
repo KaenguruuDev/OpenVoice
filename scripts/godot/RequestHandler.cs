@@ -18,7 +18,9 @@ namespace OpenVoice
         public static async Task<RequestError> SubscribeToServer(Server Server)
         {
             if (SubscribedServer != null) return RequestError.AlreadySubscribed;
-            if (await Server.TryAuthenticate())
+            bool result = await Server.TryAuthenticate();
+            GD.Print(result);
+            if (result)
             {
                 SubscribedServer = Server;
                 return RequestError.Ok;

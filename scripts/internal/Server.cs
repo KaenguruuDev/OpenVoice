@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using Godot;
 using Godot.Collections;
+using Godot.NativeInterop;
 
 #nullable enable
 namespace OpenVoice
@@ -48,22 +49,15 @@ namespace OpenVoice
             {
                 RequestInstance.RequestCompleted -= handler;
 
-                if (responseCode != 200)
-                {
-                    tcs.SetResult(false);
-                    return;
-                }
+                if (responseCode != 200) { tcs.SetResult(false); return; }
 
                 var json = new Json();
                 json.Parse(body.GetStringFromUtf8());
                 var response = json.Data.AsGodotDictionary();
-
-                GD.Print(response);
                 tcs.SetResult(true);
             };
 
             RequestInstance.RequestCompleted += handler;
-
             RequestInstance.Request(url, requestHeaders, HttpClient.Method.Post, jsonData);
 
             return tcs.Task;
@@ -87,6 +81,7 @@ namespace OpenVoice
 
         public async Task<bool> LoadData()
         {
+            GD.Print("LOADING DATA");
             bool result = await SyncChannels();
             if (result) await SyncUsers();
             return true;
@@ -119,24 +114,39 @@ namespace OpenVoice
             return tcs.Task;
         }
 
-        private Task<bool> SyncChannels()
+        private async Task<bool> SyncChannels()
         {
+            GD.Print("SYNC_CHANNELS");
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channels";
             var tcs = new TaskCompletionSource<bool>();
-            tcs.SetResult(MakeRequest(url, HttpClient.Method.Get).Result.Count > 0);
-            
-            return tcs.Task;
+            var result = await MakeRequest(url, HttpClient.Method.Get);
+            var channels = result["channels"].AsGodotArray();
+
+            for (int i = 0; i < channels.Count; i++)
+            {
+                List<Message> Msgs = new List<Message>();
+                var channel = channels[i].AsGodotDictionary();
+                var messages = channel["messages"].AsGodotArray();
+                for (int j = 0; j < messages.Count; j++)
+                {
+                    Msgs.Add(new Message((int) messages[j].AsGodotDictionary()["author"], (string) messages[j].AsGodotDictionary()["content"], (long) messages[j].AsGodotDictionary()["time"]));
+                }
+                Channels.Add(new Channel(i, (string) channel["name"], Msgs));
+            }
+
+            return result.Count > 0;
         }
 
-        private Task<bool> SyncUsers()
+        private async Task<bool> SyncUsers()
         {
+            GD.Print("SYNC_USERS");
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/users";
             var tcs = new TaskCompletionSource<bool>();
-            tcs.SetResult(MakeRequest(url, HttpClient.Method.Get).Result.Count > 0);
-            
-            return tcs.Task;
+            var result = await MakeRequest(url, HttpClient.Method.Get);
+
+            return result.Count > 0;
         }
 
         public Channel GetChannel(int ID)
@@ -145,7 +155,7 @@ namespace OpenVoice
             {
                 if (Channels[i].GetId() == ID) return Channels[i];
             }
-            return new Channel();
+            return null;
         }
 
         public Channel[] GetChannels()

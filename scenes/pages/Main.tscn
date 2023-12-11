@@ -189,3 +189,5 @@ autoplay = true
 bus = &"Record"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
+timeout = 1.0
