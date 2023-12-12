@@ -20,12 +20,16 @@ namespace OpenVoice
 
 
         private int UUID;
+        private int Privileges;
 
-        public User(string Username)
+        public User(string Username, int Privileges = -1, int UUID = -1)
         {
             this.Username = Username;
+            if (UUID != -1) this.UUID = UUID;
+            if (UUID != -1) this.Privileges = Privileges;
         }
 
         public string GetUsername() { return Username; }
+        public int GetUUID() { return UUID; }
     }
 }

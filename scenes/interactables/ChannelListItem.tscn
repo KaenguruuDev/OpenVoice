@@ -43,3 +43,10 @@ text = "Welcome"
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 1
+
+[node name="Open" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+focus_mode = 0
+flat = true

@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8k4jn5w7q56l"]
+
+[ext_resource type="Script" path="res://scripts/godot/MessageItem.cs" id="1_i87m6"]
+[ext_resource type="Texture2D" uid="uid://bljeuks5tlgxr" path="res://logo.png" id="2_r7k2o"]
+
+[sub_resource type="SystemFont" id="SystemFont_1nr13"]
+font_names = PackedStringArray("Ubuntu")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_hh824"]
+font_names = PackedStringArray("Ubuntu")
+multichannel_signed_distance_field = true
+
+[node name="Message" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -642.0
+offset_bottom = -984.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i87m6")
+
+[node name="Username" type="Label" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_right = 190.0
+offset_bottom = 23.0
+theme_override_fonts/font = SubResource("SystemFont_1nr13")
+text = "{username}"
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 0
+offset_left = 190.0
+offset_right = 339.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_fonts/font = SubResource("SystemFont_1nr13")
+text = "dd.mm.yyyy - hh:mm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageContent" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 23.0
+offset_right = 339.0
+offset_bottom = 103.0
+theme_override_fonts/normal_font = SubResource("SystemFont_hh824")
+text = "{message}"
+
+[node name="Avatar" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_r7k2o")
+centered = false

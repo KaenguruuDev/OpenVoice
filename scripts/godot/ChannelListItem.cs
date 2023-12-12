@@ -8,11 +8,12 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
-
+			
 		}
+
 		public override void _Process(double delta)
 		{
-
+			GetNode<Button>("Open").Size = Size;
 		}
 
 		public void UpdateTheme(Theme NewTheme)

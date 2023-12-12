@@ -17,11 +17,6 @@ namespace OpenVoice
 
         public Message(int Author, string Content, long TimeStamp, List<Attachment>? Attachments = null)
         {
-            GD.Print(Author);
-            GD.Print(Content);
-            GD.Print(TimeStamp);
-            GD.Print(Attachments);
-
             this.Author = Author;
             this.Content = Content;
             this.TimeStamp = TimeStamp;
@@ -32,5 +27,9 @@ namespace OpenVoice
 
         public int GetAuthor()
         { return Author; }
+        public long GetTimeStamp()
+        { return TimeStamp; }
+        public string GetContent()
+        { return Content; }
     }
 }

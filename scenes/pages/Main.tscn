@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccoh4305r58vw"]
+[gd_scene load_steps=13 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/godot/Main.cs" id="1_ub5qb"]
 [ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="2_j6351"]
+[ext_resource type="Script" path="res://scripts/godot/MessagesController.cs" id="2_qsqnl"]
 [ext_resource type="Texture2D" uid="uid://dt1q2ljodasvr" path="res://assets/ui/user_panel/settings_icon.png" id="3_8dlmd"]
+[ext_resource type="PackedScene" uid="uid://c8k4jn5w7q56l" path="res://scenes/interactables/Message.tscn" id="3_m07ts"]
 [ext_resource type="Texture2D" uid="uid://b8iaxk74s7321" path="res://assets/ui/user_panel/mic_open.png" id="4_dksst"]
 [ext_resource type="Texture2D" uid="uid://byk7lvv6yu067" path="res://assets/ui/user_panel/mic_level.png" id="5_p676t"]
 [ext_resource type="Texture2D" uid="uid://b658rloe8pej1" path="res://assets/ui/user_panel/output_enabled.png" id="6_obj6q"]
@@ -127,6 +129,20 @@ offset_bottom = 817.0
 [node name="VBox" type="VBoxContainer" parent="ChannelList"]
 layout_mode = 2
 theme_override_constants/separation = 0
+
+[node name="MessagesController" type="ScrollContainer" parent="."]
+offset_left = 380.0
+offset_top = 30.0
+offset_right = 1658.0
+offset_bottom = 904.0
+script = ExtResource("2_qsqnl")
+
+[node name="VBox" type="VBoxContainer" parent="MessagesController"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Message" parent="MessagesController/VBox" instance=ExtResource("3_m07ts")]
+layout_mode = 2
 
 [node name="UserPanel" type="Control" parent="."]
 layout_mode = 3

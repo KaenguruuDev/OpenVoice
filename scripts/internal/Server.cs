@@ -44,7 +44,7 @@ namespace OpenVoice
 
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
 
-            HttpRequest.RequestCompletedEventHandler handler = null;
+            HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
             {
                 RequestInstance.RequestCompleted -= handler;
@@ -81,7 +81,6 @@ namespace OpenVoice
 
         public async Task<bool> LoadData()
         {
-            GD.Print("LOADING DATA");
             bool result = await SyncChannels();
             if (result) await SyncUsers();
             return true;
@@ -116,10 +115,8 @@ namespace OpenVoice
 
         private async Task<bool> SyncChannels()
         {
-            GD.Print("SYNC_CHANNELS");
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channels";
-            var tcs = new TaskCompletionSource<bool>();
             var result = await MakeRequest(url, HttpClient.Method.Get);
             var channels = result["channels"].AsGodotArray();
 
@@ -140,16 +137,20 @@ namespace OpenVoice
 
         private async Task<bool> SyncUsers()
         {
-            GD.Print("SYNC_USERS");
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/users";
-            var tcs = new TaskCompletionSource<bool>();
             var result = await MakeRequest(url, HttpClient.Method.Get);
+
+            var users = result["users"].AsGodotArray();
+            foreach (Variant user in users)
+            {
+                Users.Add(new User((string) user.AsGodotDictionary()["alias"], (int) user.AsGodotDictionary()["privileges"], (int) user.AsGodotDictionary()["id"]));
+            }
 
             return result.Count > 0;
         }
 
-        public Channel GetChannel(int ID)
+        public Channel? GetChannel(int ID)
         {
             for (int i = 0; i < Channels.ToArray().Length; i++)
             {
@@ -163,5 +164,14 @@ namespace OpenVoice
 
         public User[] GetUsers()
         { return Users.ToArray(); }
+
+        public User? GetUserByID(int ID)
+        {
+            foreach (User usr in Users)
+            {
+                if (usr.GetUUID() == ID) return usr;
+            }
+            return null;
+        }
     }
 }

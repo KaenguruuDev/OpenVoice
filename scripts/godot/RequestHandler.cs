@@ -19,7 +19,6 @@ namespace OpenVoice
         {
             if (SubscribedServer != null) return RequestError.AlreadySubscribed;
             bool result = await Server.TryAuthenticate();
-            GD.Print(result);
             if (result)
             {
                 SubscribedServer = Server;

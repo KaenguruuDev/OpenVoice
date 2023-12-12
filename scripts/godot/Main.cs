@@ -75,6 +75,7 @@ namespace OpenVoice
 			{
 				ChannelListItem NewChannelListItem = GD.Load<PackedScene>("res://scenes/interactables/ChannelListItem.tscn").Instantiate<ChannelListItem>();
 				GetNode<VBoxContainer>("ChannelList/VBox").AddChild(NewChannelListItem);
+				NewChannelListItem.GetNode<Button>("Open").Pressed += () => LoadChannel(ServerChannel.GetId());
 				NewChannelListItem.UpdateTheme(LastTheme);
 			}
 		}
@@ -82,7 +83,14 @@ namespace OpenVoice
 		private void LoadChannel(int ChannelID)
 		{
 			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) == null) return;
-			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null) return; // ! Implement Channel Loading
+			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null)
+			{
+				GetNode<MessagesController>("MessagesController").Clear();
+				foreach (Message Msg in RequestHandler.GetSubscribed().GetChannel(ChannelID).GetMessages())
+				{
+					GetNode<MessagesController>("MessagesController").PushMessage(Msg);
+				}
+			}
 		}
 
 		public void UpdateTheme(Theme NewTheme)
