@@ -16,7 +16,7 @@ namespace OpenVoice
 
         private Type IsOfType;
         private int PrivilegeLevel;
-        private List<Message>? Messages;
+        private List<Message> Messages;
         private int ChannelID;
 
         public Channel(int ChannelID, string ChannelName, List<Message> Messages, int PrivilegeLevel = 0, Type ChannelType = Type.Text)
@@ -33,10 +33,10 @@ namespace OpenVoice
         { return ChannelID; }
         public string GetName()
         { return Name; }
-        public Message[]? GetMessages()
-        { return Messages?.ToArray(); }
+        public Message[] GetMessages()
+        { return Messages.ToArray(); }
 
         public void PushMessage(Message Message)
-        { if (Message.GetAuthor() == null) return; }
+        { return; }
     }
 }

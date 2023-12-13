@@ -7,7 +7,7 @@ namespace OpenVoice
 	{
 		// ! Implement ensure_files_exist
 
-		private async void LoadData()
+		private void LoadData()
 		{
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/sessions");

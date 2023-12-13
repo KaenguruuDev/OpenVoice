@@ -90,7 +90,10 @@ namespace OpenVoice
 			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null)
 			{
 				GetNode<MessagesController>("MessagesController").Clear();
-				foreach (Message Msg in RequestHandler.GetSubscribed().GetChannel(ChannelID).GetMessages())
+				
+				var CH = RequestHandler.GetSubscribed()?.GetChannel(ChannelID);
+    			if (CH == null) return;
+				foreach (Message Msg in CH.GetMessages())
 				{
 					GetNode<MessagesController>("MessagesController").PushMessage(Msg);
 				}

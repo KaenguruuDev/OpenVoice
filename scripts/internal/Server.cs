@@ -30,6 +30,11 @@ namespace OpenVoice
             this.RequestInstance = RequestInstance;
         }
 
+
+        /*
+        ! SERVER NETWORKING !
+        ! DO NOT TOUCH; IT WILL BREAK !
+        */
         public Task<bool> TryAuthenticate()
         {
             Dictionary Data = new Dictionary()

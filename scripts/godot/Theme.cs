@@ -85,38 +85,36 @@ namespace OpenVoice
 
         public StyleBox GenerateStyleBoxFromTheme(StyleBoxType Type, StyleTarget Target, Palette Color, Vector4I? CornerRadius = null)
         {
-            if (Type == StyleBoxType.EMPTY) { return new StyleBoxEmpty(); }
-            if (Target == StyleTarget.BUTTON)
+            if (Type == StyleBoxType.EMPTY)
+            { return new StyleBoxEmpty(); }
+
+            if (Target == StyleTarget.BUTTON && Type == StyleBoxType.FLAT)
             {
-                if (Type == StyleBoxType.FLAT)
+                StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
+                if (CornerRadius != null)
                 {
-                    StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
-                    if (CornerRadius != null)
-                    {
-                        NewStyleBox.CornerRadiusTopLeft = Math.Abs((int) CornerRadius?.X);
-                        NewStyleBox.CornerRadiusTopRight = Math.Abs((int) CornerRadius?.Y);
-                        NewStyleBox.CornerRadiusBottomLeft = Math.Abs((int) CornerRadius?.Z);
-                        NewStyleBox.CornerRadiusBottomRight = Math.Abs((int) CornerRadius?.W);
-                    }
-                    return NewStyleBox;
+                    NewStyleBox.CornerRadiusTopLeft = Math.Abs((int)CornerRadius?.X);
+                    NewStyleBox.CornerRadiusTopRight = Math.Abs((int)CornerRadius?.Y);
+                    NewStyleBox.CornerRadiusBottomLeft = Math.Abs((int)CornerRadius?.Z);
+                    NewStyleBox.CornerRadiusBottomRight = Math.Abs((int)CornerRadius?.W);
                 }
+                return NewStyleBox;
             }
-            else if (Target == StyleTarget.LINE_EDIT)
+
+            if (Target == StyleTarget.LINE_EDIT && Type == StyleBoxType.FLAT)
             {
-                if (Type == StyleBoxType.FLAT)
+                StyleBoxFlat NewStyleBox = new StyleBoxFlat
                 {
-                    StyleBoxFlat NewStyleBox = new StyleBoxFlat
-                    {
-                        BgColor = GetColor(Color),
-                        BorderColor = GetColor(Color)
-                    };
-                    NewStyleBox.SetCornerRadiusAll(5);
-                    NewStyleBox.BorderWidthTop = 4;
-                    NewStyleBox.BorderWidthLeft = 4;
-                    return NewStyleBox;
-                }
+                    BgColor = GetColor(Color),
+                    BorderColor = GetColor(Color)
+                };
+                NewStyleBox.SetCornerRadiusAll(5);
+                NewStyleBox.BorderWidthTop = 4;
+                NewStyleBox.BorderWidthLeft = 4;
+                return NewStyleBox;
             }
-            return null;
+
+            return new StyleBoxEmpty();
         }
     }
 }
