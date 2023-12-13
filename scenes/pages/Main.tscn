@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccoh4305r58vw"]
+[gd_scene load_steps=15 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/godot/Main.cs" id="1_ub5qb"]
 [ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="2_j6351"]
@@ -28,6 +28,17 @@ subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_a6icd"]
+
+[sub_resource type="SystemFont" id="SystemFont_bqedj"]
+font_names = PackedStringArray("Ubuntu")
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7t6gg"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+border_width_left = 4
+border_width_top = 4
+border_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ub5qb")
@@ -130,20 +141,6 @@ offset_bottom = 817.0
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="MessagesController" type="ScrollContainer" parent="."]
-offset_left = 380.0
-offset_top = 30.0
-offset_right = 1658.0
-offset_bottom = 904.0
-script = ExtResource("2_qsqnl")
-
-[node name="VBox" type="VBoxContainer" parent="MessagesController"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Message" parent="MessagesController/VBox" instance=ExtResource("3_m07ts")]
-layout_mode = 2
-
 [node name="UserPanel" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -207,3 +204,34 @@ bus = &"Record"
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 use_threads = true
 timeout = 1.0
+
+[node name="MessagesController" type="ScrollContainer" parent="."]
+offset_left = 380.0
+offset_top = 30.0
+offset_right = 1663.0
+offset_bottom = 905.0
+size_flags_vertical = 3
+follow_focus = true
+script = ExtResource("2_qsqnl")
+
+[node name="VBox" type="VBoxContainer" parent="MessagesController"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Message" parent="MessagesController/VBox" instance=ExtResource("3_m07ts")]
+layout_mode = 2
+
+[node name="UserInput" type="TextEdit" parent="."]
+offset_left = 375.0
+offset_top = 910.0
+offset_right = 1663.0
+offset_bottom = 980.0
+size_flags_vertical = 3
+theme_override_fonts/font = SubResource("SystemFont_bqedj")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_7t6gg")
+text = "This is a test"
+placeholder_text = "Message"
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true

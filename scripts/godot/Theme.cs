@@ -105,8 +105,14 @@ namespace OpenVoice
             {
                 if (Type == StyleBoxType.FLAT)
                 {
-                    StyleBoxFlat NewStyleBox = new StyleBoxFlat { BgColor = GetColor(Color) };
+                    StyleBoxFlat NewStyleBox = new StyleBoxFlat
+                    {
+                        BgColor = GetColor(Color),
+                        BorderColor = GetColor(Color)
+                    };
                     NewStyleBox.SetCornerRadiusAll(5);
+                    NewStyleBox.BorderWidthTop = 4;
+                    NewStyleBox.BorderWidthLeft = 4;
                     return NewStyleBox;
                 }
             }

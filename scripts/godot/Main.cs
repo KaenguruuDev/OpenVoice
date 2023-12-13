@@ -25,6 +25,10 @@ namespace OpenVoice
 
         public override void _Process(double delta)
         {
+			int MessageBoxOffset = (int) GetNode<TextEdit>("UserInput").Size.Y - 70;
+			GetNode<TextEdit>("UserInput").Position = new Vector2(GetNode<TextEdit>("UserInput").Position.X, 910 - MessageBoxOffset);
+			GetNode<ScrollContainer>("MessagesController").Size = new Vector2(GetNode<ScrollContainer>("MessagesController").Size.X, 875 - MessageBoxOffset);
+			GetNode<TextEdit>("UserInput").Size = new Vector2(GetNode<TextEdit>("UserInput").Size.X, 70);
 			GetMicInput();
         }
 
@@ -107,6 +111,12 @@ namespace OpenVoice
 			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeStyleboxOverride("hover", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.ACCENT, new Vector4I(8, 8, 8, 8)));
 			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeStyleboxOverride("pressed", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
 			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+
+			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("normal", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
+			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("focus", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
+			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("read_only", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
+			GetNode<TextEdit>("UserInput").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+
 			LastTheme = NewTheme;
 		}
 	}

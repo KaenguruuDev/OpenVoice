@@ -1,3 +1,6 @@
+VBoxContainer
+MarginContainer
+TextEdit
 Sprite2D
 RichTextLabel
 Label
@@ -10,5 +13,3 @@ ColorRect
 Control
 Node2D
 ScrollContainer
-VBoxContainer
-LineEdit
