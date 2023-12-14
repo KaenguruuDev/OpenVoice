@@ -91,7 +91,7 @@ namespace OpenVoice
             return true;
         }
 
-        private Task<Dictionary> MakeRequest(string url, HttpClient.Method method)
+        private Task<Dictionary> MakeRequest(string url, HttpClient.Method method, string json = "")
         {
             var tcs = new TaskCompletionSource<Dictionary>();
 
@@ -113,7 +113,8 @@ namespace OpenVoice
             RequestInstance.RequestCompleted += handler;
 
             GD.Print(url);
-            RequestInstance.Request(url, requestHeaders, method);
+            if (json != "") RequestInstance.Request(url, requestHeaders, method, json);
+            else RequestInstance.Request(url, requestHeaders, method);
 
             return tcs.Task;
         }
@@ -155,12 +156,50 @@ namespace OpenVoice
             return result.Count > 0;
         }
 
+        private async Task<string> SendAttachment(Attachment ATC)
+        {
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/attachment?upload";
+            Dictionary Data = new Dictionary()
+            {
+                { "Encoding" : ATC.GetEncoding() },
+                { "Data" : ATC.GetData() }
+                { "Name" : ATC.GetName() }
+            }
+
+            var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(Data));
+            if (result.Count > 0) return result.AsGodotDictionary()["url"];
+            else return "REQUEST_FAILED";
+        }
+
+
+        private async Task<bool> SendMessage(Channel CH, Message MSG)
+        {
+            var AttachmentLinks = new List<string>();
+            // Upload attachments first to ensure no breaky
+            foreach (Attachment ATC in MSG.GetAttachments())
+            { 
+                var link = SendAttachment(ATC);
+                if (link != "REQUEST_FAILED") AttachmentLinks.Add(link);
+            }
+
+            var base_url = "http://" + Ip + ":" + Port;
+            var url = base_url + "/channel?" + CH.GetId().ToString();
+            Dictionary Data = new Dictionary()
+            {
+                { "Author" : MSG.GetAuthor() },
+                { "Content" : MSG.GetContent() },
+                { "TimeStamp" : MSG.GetTimeStamp() }
+                { "Attachments" : }// }
+            };
+            var result = await MakeRequest(url, HttpClient.Method.Post);
+        }
+
+
         public Channel? GetChannel(int ID)
         {
             for (int i = 0; i < Channels.ToArray().Length; i++)
-            {
-                if (Channels[i].GetId() == ID) return Channels[i];
-            }
+            { if (Channels[i].GetId() == ID) return Channels[i]; }
             return null;
         }
 
@@ -173,9 +212,7 @@ namespace OpenVoice
         public User? GetUserByID(int ID)
         {
             foreach (User usr in Users)
-            {
-                if (usr.GetUUID() == ID) return usr;
-            }
+            { if (usr.GetUUID() == ID) return usr; }
             return null;
         }
     }

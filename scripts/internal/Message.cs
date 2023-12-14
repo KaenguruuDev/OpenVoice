@@ -10,7 +10,7 @@ namespace OpenVoice
         private string Content;
         private long TimeStamp;
 
-        private List<Attachment>? Attachments;
+        private List<Attachment> Attachments;
 
         public Message(int Author, string Content, long TimeStamp, List<Attachment>? Attachments = null)
         {
@@ -28,5 +28,7 @@ namespace OpenVoice
         { return TimeStamp; }
         public string GetContent()
         { return Content; }
+        public List<Attachment> GetAttachments()
+        { return Attachments; }
     }
 }
