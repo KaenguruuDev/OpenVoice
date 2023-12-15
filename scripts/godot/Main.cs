@@ -8,6 +8,8 @@ namespace OpenVoice
 	{
 		private Theme? LastTheme;
 		private User? ActiveUser;
+		private Server? ActiveServer;
+
 		AudioEffectRecord? MicRecord;
 
 		public override void _Ready()
@@ -16,27 +18,40 @@ namespace OpenVoice
 			LoadServerSidebar();
 		}
 
+		public override void _Process(double delta)
+        {
+			// Message Box Resize
+			int MessageBoxOffset = (int) GetNode<TextEdit>("UserInput").Size.Y - 70;
+			GetNode<TextEdit>("UserInput").Position = new Vector2(GetNode<TextEdit>("UserInput").Position.X, 910 - MessageBoxOffset);
+			GetNode<ScrollContainer>("MessagesController").Size = new Vector2(GetNode<ScrollContainer>("MessagesController").Size.X, 875 - MessageBoxOffset);
+			GetNode<TextEdit>("UserInput").Size = new Vector2(GetNode<TextEdit>("UserInput").Size.X, 70);
+        }
+
+		public override void _Input(Event @event)
+		{
+			if (@event is InputEventKey && @event.Key == "Enter")
+			{
+				if (GetNode<TextEdit>("UserInput").HasFocus() && ActiveServer != null)
+				{
+					ActiveServer.PushMessage();
+				}
+			}
+		}
+
+		/*
 		private void GetMicInput()
 		{
 			MicRecord = (AudioEffectRecord) AudioServer.GetBusEffect(AudioServer.GetBusIndex("Record"), 0);
 			AudioEffectSpectrumAnalyzerInstance AnalyzerInstance = (AudioEffectSpectrumAnalyzerInstance) AudioServer.GetBusEffectInstance(AudioServer.GetBusIndex("Record"), 1);
 			GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value = Math.Clamp((AnalyzerInstance.GetMagnitudeForFrequencyRange(0f, 50000f, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Max) * 2000f).X, GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value - 3, GetNode<TextureProgressBar>("UserPanel/MicStatus/MicLevel").Value + 3);
 		}
-
-        public override void _Process(double delta)
-        {
-			int MessageBoxOffset = (int) GetNode<TextEdit>("UserInput").Size.Y - 70;
-			GetNode<TextEdit>("UserInput").Position = new Vector2(GetNode<TextEdit>("UserInput").Position.X, 910 - MessageBoxOffset);
-			GetNode<ScrollContainer>("MessagesController").Size = new Vector2(GetNode<ScrollContainer>("MessagesController").Size.X, 875 - MessageBoxOffset);
-			GetNode<TextEdit>("UserInput").Size = new Vector2(GetNode<TextEdit>("UserInput").Size.X, 70);
-			GetMicInput();
-        }
-
+		*/
+		/*
         private void LoadUserPanel()
 		{
 			if (ActiveUser == null) return;
-
 		}
+		*/
 
 		private void LoadServerSidebar()
 		{
@@ -64,16 +79,17 @@ namespace OpenVoice
 		{
 			if (ActiveUser == null || GetNode<HttpRequest>("HTTPRequest") == null) return;
 
+			// Try to subscribe to the selected server
 			Server RequestedServer = new Server("127.0.0.1", 9999, ActiveUser, GetNode<HttpRequest>("HTTPRequest"));
 			RequestHandler.RequestError Error = await RequestHandler.SubscribeToServer(RequestedServer);
 
-			if (Error == RequestHandler.RequestError.Ok) 
-			{
-				GD.Print("Successfully connected to: " + IpAdress);
-				var result = await RequestedServer.LoadData();
-				if (! result) return;
-			}
-			else return;
+			// Early return if there's an error, consider showing error to user
+			if (Error != RequestHandler.RequestError.Ok) return;
+			ActiveServer = RequestedServer;
+
+			// GD.Print("Successfully connected to: " + IpAdress);
+			bool result = await RequestedServer.LoadData();
+			if (! result) return; // return if load failed
 
 			foreach (Channel ServerChannel in RequestedServer.GetChannels())
 			{
@@ -86,18 +102,16 @@ namespace OpenVoice
 
 		private void LoadChannel(int ChannelID)
 		{
-			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) == null) return;
-			if (RequestHandler.GetSubscribed()?.GetChannel(ChannelID) != null)
-			{
-				GetNode<MessagesController>("MessagesController").Clear();
-				
-				var CH = RequestHandler.GetSubscribed()?.GetChannel(ChannelID);
-    			if (CH == null) return;
-				foreach (Message Msg in CH.GetMessages())
-				{
-					GetNode<MessagesController>("MessagesController").PushMessage(Msg);
-				}
-			}
+			var Server = RequestHandler.GetSubscribed();
+			if (Server == null || Server.GetChannel(ChannelID) == null) return;
+			
+			// Clear all messages
+			GetNode<MessagesController>("MessagesController").Clear();
+
+			var CH = RequestHandler.GetSubscribed()?.GetChannel(ChannelID);
+			if (CH == null) return;
+			foreach (Message Msg in CH.GetMessages())
+			{ GetNode<MessagesController>("MessagesController").PushMessage(Msg); }
 		}
 
 		public void UpdateTheme(Theme NewTheme)

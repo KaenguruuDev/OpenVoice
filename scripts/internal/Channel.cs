@@ -13,12 +13,13 @@ namespace OpenVoice
         }
 
         private string Name;
-
-        private Type IsOfType;
         private int PrivilegeLevel;
-        private List<Message> Messages;
         private int ChannelID;
+        
+        private Type IsOfType;
 
+        private List<Message> Messages;
+        
         public Channel(int ChannelID, string ChannelName, List<Message> Messages, int PrivilegeLevel = 0, Type ChannelType = Type.Text)
         {
             this.ChannelID = ChannelID;
