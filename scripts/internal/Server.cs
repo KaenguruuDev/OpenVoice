@@ -159,13 +159,13 @@ namespace OpenVoice
         private async Task<string> SendAttachment(Attachment ATC)
         {
             var base_url = "http://" + Ip + ":" + Port;
-            var url = base_url + "/attachment?upload";
+            var url = base_url + "/cdn?upload";
             Dictionary Data = new Dictionary()
             {
                 { "Encoding" : ATC.GetEncoding() },
                 { "Data" : ATC.GetData() }
                 { "Name" : ATC.GetName() }
-            }
+            };
 
             var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(Data));
             if (result.Count > 0) return result.AsGodotDictionary()["url"];
@@ -178,20 +178,22 @@ namespace OpenVoice
             var AttachmentLinks = new List<string>();
             // Upload attachments first to ensure no breaky
             foreach (Attachment ATC in MSG.GetAttachments())
-            { 
-                var link = SendAttachment(ATC);
+            {
+                var link = await SendAttachment(ATC);
                 if (link != "REQUEST_FAILED") AttachmentLinks.Add(link);
             }
 
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channel?" + CH.GetId().ToString();
+            
             Dictionary Data = new Dictionary()
             {
                 { "Author" : MSG.GetAuthor() },
                 { "Content" : MSG.GetContent() },
-                { "TimeStamp" : MSG.GetTimeStamp() }
-                { "Attachments" : }// }
+                { "TimeStamp" : MSG.GetTimeStamp() },
+                { "Attachments" : Json.Stringify(AttachmentLinks.AsGodotArray()) }
             };
+
             var result = await MakeRequest(url, HttpClient.Method.Post);
         }
 
