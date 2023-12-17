@@ -9,6 +9,7 @@ namespace OpenVoice
 		private Theme? LastTheme;
 		private User? ActiveUser;
 		private Server? ActiveServer;
+		private Channel? ActiveChannel;
 
 		AudioEffectRecord? MicRecord;
 
@@ -27,13 +28,16 @@ namespace OpenVoice
 			GetNode<TextEdit>("UserInput").Size = new Vector2(GetNode<TextEdit>("UserInput").Size.X, 70);
         }
 
-		public override void _Input(Event @event)
+		public override async void _Input(InputEvent @event)
 		{
-			if (@event is InputEventKey && @event.Key == "Enter")
+			if (@event is InputEventKey && ((InputEventKey) @event).AsTextPhysicalKeycode() == "Shift+Enter" && @event.IsPressed())
 			{
 				if (GetNode<TextEdit>("UserInput").HasFocus() && ActiveServer != null)
 				{
-					ActiveServer.PushMessage();
+					if (ActiveServer == null || ActiveChannel == null || ActiveUser == null) return;
+					var NewMessage = new Message(ActiveUser.GetUUID(), GetNode<TextEdit>("UserInput").Text, DateTime.Now.Ticks);
+					var Result = await ActiveServer.SendMessage(ActiveChannel, NewMessage);
+					GD.Print(Result);
 				}
 			}
 		}
@@ -110,6 +114,7 @@ namespace OpenVoice
 
 			var CH = RequestHandler.GetSubscribed()?.GetChannel(ChannelID);
 			if (CH == null) return;
+			ActiveChannel = CH;
 			foreach (Message Msg in CH.GetMessages())
 			{ GetNode<MessagesController>("MessagesController").PushMessage(Msg); }
 		}

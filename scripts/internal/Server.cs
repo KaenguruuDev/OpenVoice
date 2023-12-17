@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 using Godot;
 using Godot.Collections;
-using Godot.NativeInterop;
 
 #nullable enable
 namespace OpenVoice
@@ -35,6 +34,7 @@ namespace OpenVoice
         ! SERVER NETWORKING !
         ! DO NOT TOUCH; IT WILL BREAK !
         */
+        // User Auth
         public Task<bool> TryAuthenticate()
         {
             Dictionary Data = new Dictionary()
@@ -68,6 +68,7 @@ namespace OpenVoice
             return tcs.Task;
         }
 
+        // Error Handling and JSON Parsing
         private Variant HandleRequestCompleted(long result, long responseCode, string[] headers, byte[] body, TaskCompletionSource<Dictionary> tcs)
         {
             if (responseCode != 200)
@@ -91,6 +92,8 @@ namespace OpenVoice
             return true;
         }
 
+        // Takes URL, method (GET, POST, etc.), and request body
+        // Returns Server response
         private Task<Dictionary> MakeRequest(string url, HttpClient.Method method, string json = "")
         {
             var tcs = new TaskCompletionSource<Dictionary>();
@@ -101,7 +104,12 @@ namespace OpenVoice
                 return tcs.Task;
             }
 
-            string[] requestHeaders = new string[] { "Content-Type: application/json", "Token: " + Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) };
+            var token = new Dictionary()
+            {
+                {"token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString()))}
+            };
+            
+            string[] requestHeaders = new string[] { "Content-Type: application/json", Json.Stringify(token)};
 
             HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
@@ -119,6 +127,7 @@ namespace OpenVoice
             return tcs.Task;
         }
 
+        // Gets Channels from Server
         private async Task<bool> SyncChannels()
         {
             var base_url = "http://" + Ip + ":" + Port;
@@ -141,6 +150,7 @@ namespace OpenVoice
             return result.Count > 0;
         }
 
+        // Gets Userdata from Server
         private async Task<bool> SyncUsers()
         {
             var base_url = "http://" + Ip + ":" + Port;
@@ -156,24 +166,25 @@ namespace OpenVoice
             return result.Count > 0;
         }
 
+        // Uploads Attachment to Server and returns url
         private async Task<string> SendAttachment(Attachment ATC)
         {
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/cdn?upload";
             Dictionary Data = new Dictionary()
             {
-                { "Encoding" : ATC.GetEncoding() },
-                { "Data" : ATC.GetData() }
-                { "Name" : ATC.GetName() }
+                { "Encoding", ATC.GetEncoding() },
+                { "Data", ATC.GetData() },
+                { "Name", ATC.GetName() },
             };
 
             var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(Data));
-            if (result.Count > 0) return result.AsGodotDictionary()["url"];
+            if (result.Count > 0) return (string) result["url"];
             else return "REQUEST_FAILED";
         }
 
 
-        private async Task<bool> SendMessage(Channel CH, Message MSG)
+        public async Task<bool> SendMessage(Channel CH, Message MSG)
         {
             var AttachmentLinks = new List<string>();
             // Upload attachments first to ensure no breaky
@@ -184,17 +195,24 @@ namespace OpenVoice
             }
 
             var base_url = "http://" + Ip + ":" + Port;
-            var url = base_url + "/channel?" + CH.GetId().ToString();
+            var url = base_url + "/channel";
             
-            Dictionary Data = new Dictionary()
+            Dictionary MessageData = new Dictionary()
             {
-                { "Author" : MSG.GetAuthor() },
-                { "Content" : MSG.GetContent() },
-                { "TimeStamp" : MSG.GetTimeStamp() },
-                { "Attachments" : Json.Stringify(AttachmentLinks.AsGodotArray()) }
+                { "Author", MSG.GetAuthor() },
+                { "Content", MSG.GetContent() },
+                { "TimeStamp", MSG.GetTimeStamp() },
+                { "Attachments", AttachmentLinks.ToArray() }
+            };
+            Dictionary RequestData = new Dictionary()
+            {
+                { "Action", "PushMessage"},
+                { "Channel", CH.GetId().ToString() },
+                { "Message",  MessageData }
             };
 
-            var result = await MakeRequest(url, HttpClient.Method.Post);
+            var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(RequestData));
+            return result.Count > 0;
         }
 
 
