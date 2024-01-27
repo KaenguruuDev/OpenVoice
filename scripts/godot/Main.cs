@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 #nullable enable
@@ -15,22 +18,28 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
+			// Connecting Signals
+			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").Pressed += () => { UIButtonAction(0); };
+			GetNode<Button>("AddServerDialog/CenterContainer/HBoxContainer/Add").Pressed += () => { UIButtonAction(1); };
+			GetNode<Button>("AddServerDialog/CenterContainer/HBoxContainer/Cancel").Pressed += () => { UIButtonAction(2); };
+
+
 			ActiveUser = new User("Kaenguruu");
 			LoadServerSidebar();
 		}
 
 		public override void _Process(double delta)
-        {
+		{
 			// Message Box Resize
-			int MessageBoxOffset = (int) GetNode<TextEdit>("UserInput").Size.Y - 70;
+			int MessageBoxOffset = (int)GetNode<TextEdit>("UserInput").Size.Y - 70;
 			GetNode<TextEdit>("UserInput").Position = new Vector2(GetNode<TextEdit>("UserInput").Position.X, 910 - MessageBoxOffset);
 			GetNode<ScrollContainer>("MessagesController").Size = new Vector2(GetNode<ScrollContainer>("MessagesController").Size.X, 875 - MessageBoxOffset);
 			GetNode<TextEdit>("UserInput").Size = new Vector2(GetNode<TextEdit>("UserInput").Size.X, 70);
-        }
+		}
 
 		public override async void _Input(InputEvent @event)
 		{
-			if (@event is InputEventKey && ((InputEventKey) @event).AsTextPhysicalKeycode() == "Shift+Enter" && @event.IsPressed())
+			if (@event is InputEventKey && ((InputEventKey)@event).AsTextPhysicalKeycode() == "Shift+Enter" && @event.IsPressed())
 			{
 				if (GetNode<TextEdit>("UserInput").HasFocus() && ActiveServer != null)
 				{
@@ -57,21 +66,56 @@ namespace OpenVoice
 		}
 		*/
 
+		private void UIButtonAction(int ID)
+		{
+			switch (ID)
+			{
+				// Add Server Button
+				case 0:
+					GetNode<Control>("AddServerDialog").Show();
+					break;
+				// AddServerDialog.Confirm
+				case 1:
+					List<string> Servers = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Read).GetAsText().Split("\n").ToList();
+					Servers.Add("ip=" + GetNode<LineEdit>("AddServerDialog/IPInput").Text + "/logo=\"\"");
+					string SaveData = ""; foreach (string ServerData in Servers) { if (ServerData != "") SaveData += ServerData + "\n"; }
+					{ using var file = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Write); file.StoreString(SaveData); }
+
+					GetNode<Control>("AddServerDialog").Hide();
+					break;
+				// AddServerDialog.Cancel
+				case 2:
+					GetNode<Control>("AddServerDialog").Hide();
+					break;
+				default:
+					break;
+			}
+		}
+
 		private void LoadServerSidebar()
 		{
-			string[] Servers = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Read).GetAsText().Split("\n");
+			using var file = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Read);
+			string[] Servers = file.GetAsText().Split("\n");
+
+			if (Servers.Length == 1) return;
+
 			foreach (string Server in Servers)
 			{
 				string[] Parameters = Server.Split("/"); // Format: ip=0.0.0.0/logo="absolute_path"
 
-				Control NewServerListInstance = (Control) GD.Load<PackedScene>("res://scenes/interactables/ServerListItem.tscn").Instantiate();
+				Control NewServerListInstance = (Control)GD.Load<PackedScene>("res://scenes/interactables/ServerListItem.tscn").Instantiate();
 
-				NewServerListInstance.GetNode<Sprite2D>("Logo").Texture = ImageTexture.CreateFromImage(Image.LoadFromFile(Parameters[1].Replace("logo=","").Replace("\"","")));
-				NewServerListInstance.GetNode<Sprite2D>("Logo").Scale = new Vector2(50f / NewServerListInstance.GetNode<Sprite2D>("Logo").Texture.GetWidth(), 50f / NewServerListInstance.GetNode<Sprite2D>("Logo").Texture.GetHeight());
+				if (Parameters.Length < 2) return;
+
+				if (FileAccess.FileExists(Parameters[1].Replace("logo=", "").Replace("\"", "")))
+				{
+					NewServerListInstance.GetNode<Sprite2D>("Logo").Texture = ImageTexture.CreateFromImage(Image.LoadFromFile(Parameters[1].Replace("logo=", "").Replace("\"", "")));
+					NewServerListInstance.GetNode<Sprite2D>("Logo").Scale = new Vector2(50f / NewServerListInstance.GetNode<Sprite2D>("Logo").Texture.GetWidth(), 50f / NewServerListInstance.GetNode<Sprite2D>("Logo").Texture.GetHeight());
+				}
 
 				Action OpenServerPressed = () => { LoadServer(Parameters[0].Replace("ip=", "")); };
 				NewServerListInstance.GetNode<Button>("OpenServer").Connect("pressed", Callable.From(OpenServerPressed));
-				
+
 				GetNode<VBoxContainer>("ServerList/VBox").AddChild(NewServerListInstance);
 			}
 
@@ -93,7 +137,7 @@ namespace OpenVoice
 
 			// GD.Print("Successfully connected to: " + IpAdress);
 			bool result = await RequestedServer.LoadData();
-			if (! result) return; // return if load failed
+			if (!result) return; // return if load failed
 
 			foreach (Channel ServerChannel in RequestedServer.GetChannels())
 			{
@@ -108,7 +152,7 @@ namespace OpenVoice
 		{
 			var Server = RequestHandler.GetSubscribed();
 			if (Server == null || Server.GetChannel(ChannelID) == null) return;
-			
+
 			// Clear all messages
 			GetNode<MessagesController>("MessagesController").Clear();
 
@@ -121,23 +165,33 @@ namespace OpenVoice
 
 		public void UpdateTheme(Theme NewTheme)
 		{
-			foreach (Button Secondaries in GetNode<Node2D>("SecondaryBackgrounds").GetChildren())
+			foreach (Button Secondaries in GetTree().GetNodesInGroup("SecondaryBG"))
 			{
 				Secondaries.AddThemeStyleboxOverride("disabled", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.SECONDARY, new Vector4I(5, 5, 5, 5)));
 			}
-			foreach (Button Tertiaries in GetNode<Node2D>("TertiaryBackgrounds").GetChildren())
+			foreach (Button Tertiaries in GetTree().GetNodesInGroup("TertiaryBG"))
 			{
 				Tertiaries.AddThemeStyleboxOverride("disabled", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.BACKGROUND, new Vector4I(5, 5, 5, 5)));
 			}
-			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeStyleboxOverride("normal", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
-			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeStyleboxOverride("hover", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.ACCENT, new Vector4I(8, 8, 8, 8)));
-			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeStyleboxOverride("pressed", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
-			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
-
-			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("normal", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
-			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("focus", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
-			GetNode<TextEdit>("UserInput").AddThemeStyleboxOverride("read_only", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
-			GetNode<TextEdit>("UserInput").AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+			foreach (Button UIButtons in GetTree().GetNodesInGroup("UIButtons"))
+			{
+				UIButtons.AddThemeStyleboxOverride("normal", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
+				UIButtons.AddThemeStyleboxOverride("hover", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.ACCENT, new Vector4I(8, 8, 8, 8)));
+				UIButtons.AddThemeStyleboxOverride("pressed", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.BUTTON, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
+				UIButtons.AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+			}
+			foreach (Control InputFields in GetTree().GetNodesInGroup("InputFields"))
+			{
+				InputFields.AddThemeStyleboxOverride("normal", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
+				InputFields.AddThemeStyleboxOverride("focus", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.PRIMARY, new Vector4I(8, 8, 8, 8)));
+				InputFields.AddThemeStyleboxOverride("read_only", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
+				InputFields.AddThemeStyleboxOverride("disabled", NewTheme.GenerateStyleBoxFromTheme(Theme.StyleBoxType.FLAT, Theme.StyleTarget.LINE_EDIT, Theme.Palette.BACKGROUND, new Vector4I(8, 8, 8, 8)));
+				InputFields.AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+			}
+			foreach (Control TextFields in GetTree().GetNodesInGroup("Text"))
+			{
+				TextFields.AddThemeColorOverride("font_color", NewTheme.GetColor(Theme.Palette.TEXT));
+			}
 
 			LastTheme = NewTheme;
 		}

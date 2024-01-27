@@ -20,8 +20,8 @@ namespace OpenVoice
 			DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, false);
 			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 
-			var screen_size = (Vector2) DisplayServer.ScreenGetSize(1);
-  			DisplayServer.WindowSetPosition((Vector2I) (screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f) + new Vector2I(1920, 0));
+			//var screen_size = (Vector2)DisplayServer.ScreenGetSize(0);
+			//DisplayServer.WindowSetPosition((Vector2I)(screen_size * 0.5f - new Vector2(880f, 495f) * 0.5f) + new Vector2I(1920, 0));
 
 			UpdateTheme(UserData.GetTheme());
 

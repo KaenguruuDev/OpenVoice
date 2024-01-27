@@ -42,6 +42,8 @@ namespace OpenVoice
                 Version = (string)Data.GetValueOrDefault("version");
                 Name = (string)Data.GetValueOrDefault("name");
                 Description = (string)Data.GetValueOrDefault("description");
+
+                GD.Print(Text);
             }
         }
 

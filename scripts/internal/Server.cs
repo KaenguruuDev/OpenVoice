@@ -39,7 +39,8 @@ namespace OpenVoice
         {
             Dictionary Data = new Dictionary()
             {
-                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) }
+                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) },
+                { "Action", "Authenticate"}
             };
 
             string jsonData = Json.Stringify(Data);
@@ -51,16 +52,16 @@ namespace OpenVoice
 
             HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
-            {
-                RequestInstance.RequestCompleted -= handler;
+                    {
+                        RequestInstance.RequestCompleted -= handler;
 
-                if (responseCode != 200) { tcs.SetResult(false); return; }
+                        if (responseCode != 200) { tcs.SetResult(false); return; }
 
-                var json = new Json();
-                json.Parse(body.GetStringFromUtf8());
-                var response = json.Data.AsGodotDictionary();
-                tcs.SetResult(true);
-            };
+                        var json = new Json();
+                        json.Parse(body.GetStringFromUtf8());
+                        var response = json.Data.AsGodotDictionary();
+                        tcs.SetResult(true);
+                    };
 
             RequestInstance.RequestCompleted += handler;
             RequestInstance.Request(url, requestHeaders, HttpClient.Method.Post, jsonData);
@@ -108,8 +109,8 @@ namespace OpenVoice
             {
                 {"token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString()))}
             };
-            
-            string[] requestHeaders = new string[] { "Content-Type: application/json", Json.Stringify(token)};
+
+            string[] requestHeaders = new string[] { "Content-Type: application/json", Json.Stringify(token) };
 
             HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
@@ -142,9 +143,9 @@ namespace OpenVoice
                 var messages = channel["messages"].AsGodotArray();
                 for (int j = 0; j < messages.Count; j++)
                 {
-                    Msgs.Add(new Message((int) messages[j].AsGodotDictionary()["author"], (string) messages[j].AsGodotDictionary()["content"], (long) messages[j].AsGodotDictionary()["time"]));
+                    Msgs.Add(new Message((int)messages[j].AsGodotDictionary()["author"], (string)messages[j].AsGodotDictionary()["content"], (long)messages[j].AsGodotDictionary()["time"]));
                 }
-                Channels.Add(new Channel(i, (string) channel["name"], Msgs));
+                Channels.Add(new Channel(i, (string)channel["name"], Msgs));
             }
 
             return result.Count > 0;
@@ -160,7 +161,7 @@ namespace OpenVoice
             var users = result["users"].AsGodotArray();
             foreach (Variant user in users)
             {
-                Users.Add(new User((string) user.AsGodotDictionary()["alias"], (int) user.AsGodotDictionary()["privileges"], (int) user.AsGodotDictionary()["id"]));
+                Users.Add(new User((string)user.AsGodotDictionary()["alias"], (int)user.AsGodotDictionary()["privileges"], (int)user.AsGodotDictionary()["id"]));
             }
 
             return result.Count > 0;
@@ -179,7 +180,7 @@ namespace OpenVoice
             };
 
             var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(Data));
-            if (result.Count > 0) return (string) result["url"];
+            if (result.Count > 0) return (string)result["url"];
             else return "REQUEST_FAILED";
         }
 
@@ -196,7 +197,7 @@ namespace OpenVoice
 
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channel";
-            
+
             Dictionary MessageData = new Dictionary()
             {
                 { "Author", MSG.GetAuthor() },

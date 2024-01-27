@@ -17,16 +17,16 @@ namespace OpenVoice
             string LatestUser = Latest.AsGodotDictionary().Values.ToArray()[0].ToString();
 
             Variant SessionData = FileAccess.Open("user://sessions/" + LatestUser + ".dat", FileAccess.ModeFlags.Read).GetVar();
-            string user = (string) SessionData.AsGodotDictionary().Values.ToArray()[0];
-            string token = (string) SessionData.AsGodotDictionary().Values.ToArray()[1];
+            string user = (string)SessionData.AsGodotDictionary().Values.ToArray()[0];
+            string token = (string)SessionData.AsGodotDictionary().Values.ToArray()[1];
 
             byte[] data = Convert.FromBase64String(user);
             string DecodedUser = Encoding.UTF8.GetString(data);
-            
+
             data = Convert.FromBase64String(token);
             string DecodedToken = Encoding.UTF8.GetString(data);
 
-            if (DecodedUser == LatestUser && DateTime.Now.ToUniversalTime().Ticks - DateTime.FromFileTime((long) Convert.ToDouble(DecodedToken)).ToUniversalTime().Ticks < 9000)
+            if (DecodedUser == LatestUser && DateTime.Now.ToUniversalTime().Ticks - DateTime.FromFileTime((long)Convert.ToDouble(DecodedToken)).ToUniversalTime().Ticks < 9000)
             { return true; }
 
             return false;
