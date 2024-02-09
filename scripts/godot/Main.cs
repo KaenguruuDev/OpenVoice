@@ -44,9 +44,9 @@ namespace OpenVoice
 				if (GetNode<TextEdit>("UserInput").HasFocus() && ActiveServer != null)
 				{
 					if (ActiveServer == null || ActiveChannel == null || ActiveUser == null) return;
-					var NewMessage = new Message(ActiveUser.GetUUID(), GetNode<TextEdit>("UserInput").Text, DateTime.Now.Ticks);
+					var NewMessage = new Message(ActiveUser.GetUUID(), GetNode<TextEdit>("UserInput").Text, DateTime.Now.Second);
 					var Result = await ActiveServer.SendMessage(ActiveChannel, NewMessage);
-					GD.Print(Result);
+					if (Result) { GetNode<MessagesController>("MessagesController").PushMessage(NewMessage); }
 				}
 			}
 		}
