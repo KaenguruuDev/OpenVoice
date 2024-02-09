@@ -40,14 +40,17 @@ border_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_ko44j"]
 font_names = PackedStringArray("Ubuntu")
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_0j63m"]
 font_names = PackedStringArray("Ubuntu")
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_kgcir"]
 font_names = PackedStringArray("Ubuntu")
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_a6icd"]

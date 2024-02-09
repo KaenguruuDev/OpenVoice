@@ -121,7 +121,6 @@ namespace OpenVoice
 
             RequestInstance.RequestCompleted += handler;
 
-            GD.Print(url);
             if (json != "") RequestInstance.Request(url, requestHeaders, method, json);
             else RequestInstance.Request(url, requestHeaders, method);
 
@@ -213,6 +212,7 @@ namespace OpenVoice
             };
 
             var result = await MakeRequest(url, HttpClient.Method.Post, Json.Stringify(RequestData));
+            GD.Print(result);
             return result.Count > 0;
         }
 
