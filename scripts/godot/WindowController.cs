@@ -10,6 +10,7 @@ namespace OpenVoice
 
 		public override void _Ready()
 		{
+			DataSecurity.SetEncryptionKey();
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/users");
 			Directory.CreateDirectory(OS.GetUserDataDir() + "/sessions");
 
@@ -59,7 +60,7 @@ namespace OpenVoice
 		public void ShowHome()
 		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Show(); GetNode<Node2D>("Main").Hide(); }
 		public void ShowMain()
-		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); GetNode<Node2D>("Main").Show(); }
+		{ GetNode<Node2D>("LogIn").Hide(); GetNode<Node2D>("SignUp").Hide(); GetNode<Node2D>("HomeControls").Hide(); GetNode<Node2D>("Main").Show(); GetNode<Main>("Main").LoadInterface(); }
 
 		public void ExitApplication()
 		{ GetTree().Quit(); }

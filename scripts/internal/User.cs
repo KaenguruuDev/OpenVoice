@@ -5,7 +5,7 @@ namespace OpenVoice
 {
     public class User
     {
-        private enum Mode
+        public enum Mode
         {
             ONLINE,
             OFFLINE,
@@ -31,5 +31,14 @@ namespace OpenVoice
 
         public string GetUsername() { return Username; }
         public int GetUUID() { return UUID; }
+        public int GetPrivileges() { return Privileges; }
+        public Image GetAvatar() { return Avatar; }
+        public string GetStatus() { return Status; }
+        public Mode GetUserMode() { return UserMode; }
+
+        public void SetAvatar(Image Avatar) { this.Avatar = Avatar; }
+        public void SetStatus(string Status) { this.Status = Status; }
+        public void SetUserMode(Mode UserMode) { this.UserMode = UserMode; }
+
     }
 }

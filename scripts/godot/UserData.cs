@@ -13,10 +13,10 @@ namespace OpenVoice
         {
             if (!FileAccess.FileExists("user://sessions/latest.dat")) return false;
 
-            Variant Latest = FileAccess.Open("user://sessions/latest.dat", FileAccess.ModeFlags.Read).GetVar();
+            var f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/sessions/latest.dat", FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey()); Variant Latest = f.GetVar(); f.Close();
             string LatestUser = Latest.AsGodotDictionary().Values.ToArray()[0].ToString();
 
-            Variant SessionData = FileAccess.Open("user://sessions/" + LatestUser + ".dat", FileAccess.ModeFlags.Read).GetVar();
+            f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/sessions/" + LatestUser + ".dat", FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey()); Variant SessionData = f.GetVar(); f.Close();
             string user = (string)SessionData.AsGodotDictionary().Values.ToArray()[0];
             string token = (string)SessionData.AsGodotDictionary().Values.ToArray()[1];
 
@@ -38,7 +38,7 @@ namespace OpenVoice
             foreach (string userFile in DirAccess.GetFilesAt("user://users/"))
             {
                 if (!userFile.EndsWith(".dat")) continue;
-                string[] data = FileAccess.Open("user://users/" + userFile, FileAccess.ModeFlags.Read).GetAsText().Split('\n');
+                var f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/users/" + userFile, FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey()); string[] data = f.GetAsText().Split('\n'); f.Close();
 
                 if (Username == data[0] && Password == data[1])
                 {
@@ -48,14 +48,14 @@ namespace OpenVoice
                         { "token", Convert.ToBase64String(Encoding.UTF8.GetBytes(DateTime.Now.ToUniversalTime().Ticks.ToString())) }
                     };
 
-                    FileAccess.Open("user://sessions/" + Username + ".dat", FileAccess.ModeFlags.Write).StoreVar(SessionData);
+                    f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/sessions/" + Username + ".dat", FileAccess.ModeFlags.Write, DataSecurity.GetEncryptionKey()); f.StoreVar(SessionData); f.Close();
 
                     Dictionary<string, string> Latest = new Dictionary<string, string>
                     {
                         { "last_user", Username }
                     };
 
-                    FileAccess.Open("user://sessions/latest.dat", FileAccess.ModeFlags.Write).StoreVar(Latest);
+                    f = FileAccess.OpenEncryptedWithPass("user://sessions/latest.dat", FileAccess.ModeFlags.Write, DataSecurity.GetEncryptionKey()); f.StoreVar(Latest); f.Close();
 
                     return true;
                 }

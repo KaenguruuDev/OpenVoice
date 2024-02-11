@@ -29,8 +29,8 @@ namespace OpenVoice
         {
             if (FileAccess.FileExists(fPath) && fPath.EndsWith(".json"))
             {
-                FileAccess ThemeFile = FileAccess.Open(fPath, FileAccess.ModeFlags.Read);
-                Godot.Collections.Dictionary Data = Json.ParseString(ThemeFile.GetAsText()).AsGodotDictionary();
+                var f = FileAccess.Open(fPath, FileAccess.ModeFlags.Read); string ThemeFileData = f.GetAsText(); f.Close();
+                Godot.Collections.Dictionary Data = Json.ParseString(ThemeFileData).AsGodotDictionary();
                 Godot.Collections.Dictionary Colors = (Godot.Collections.Dictionary)Data.GetValueOrDefault("colors");
 
                 Background = (Color)Colors.GetValueOrDefault("background");

@@ -8,9 +8,9 @@ namespace OpenVoice
 		{
 			string Data = Username + '\n' + Password;
 
-			FileAccess.Open("user://users/" + Username + ".dat", FileAccess.ModeFlags.Write).StoreString(Data);
-			DirAccess.RemoveAbsolute("user://users/temp.txt");
+			var f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/users/" + Username + ".dat", FileAccess.ModeFlags.Write, DataSecurity.GetEncryptionKey()); f.StoreString(Data); f.Close();
 		}
+
 		public override void _Ready()
 		{
 			GetNode<Button>("Buttons/VBoxContainer/Other/Confirm").Pressed += ConfirmSignUp;
@@ -19,7 +19,7 @@ namespace OpenVoice
 
 		public override void _Process(double delta)
 		{
-			
+
 		}
 
 		public void UpdateTheme(Theme NewTheme)
@@ -47,7 +47,10 @@ namespace OpenVoice
 		private void ConfirmSignUp()
 		{
 			if (GetNode<LineEdit>("Password").Text == GetNode<LineEdit>("ConfirmPassword").Text && GetNode<LineEdit>("Username").Text != "")
-			{ SaveData(GetNode<LineEdit>("Username").Text, GetNode<LineEdit>("Password").Text); }
+			{
+				SaveData(GetNode<LineEdit>("Username").Text, GetNode<LineEdit>("Password").Text);
+				ReturnToHome();
+			}
 		}
 	}
 }

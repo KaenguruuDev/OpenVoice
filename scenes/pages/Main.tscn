@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccoh4305r58vw"]
+[gd_scene load_steps=19 format=3 uid="uid://ccoh4305r58vw"]
 
 [ext_resource type="Script" path="res://scripts/godot/Main.cs" id="1_ub5qb"]
 [ext_resource type="Texture2D" uid="uid://dx8tvub4b73rh" path="res://assets/ui/server_list_item_logo_fallback.png" id="2_j6351"]
 [ext_resource type="Script" path="res://scripts/godot/MessagesController.cs" id="2_qsqnl"]
+[ext_resource type="Script" path="res://scripts/godot/UserPanel.cs" id="2_tw0wd"]
 [ext_resource type="Texture2D" uid="uid://dt1q2ljodasvr" path="res://assets/ui/user_panel/settings_icon.png" id="3_8dlmd"]
 [ext_resource type="PackedScene" uid="uid://c8k4jn5w7q56l" path="res://scenes/interactables/Message.tscn" id="3_m07ts"]
 [ext_resource type="Texture2D" uid="uid://b8iaxk74s7321" path="res://assets/ui/user_panel/mic_open.png" id="4_dksst"]
@@ -163,6 +164,7 @@ offset_left = 113.0
 offset_top = 827.0
 offset_right = 363.0
 offset_bottom = 984.0
+script = ExtResource("2_tw0wd")
 
 [node name="Username" type="Label" parent="UserPanel" groups=["Text"]]
 layout_mode = 0
@@ -202,7 +204,6 @@ offset_left = -43.0
 offset_top = -105.0
 offset_right = 43.0
 offset_bottom = 38.0
-value = 41.0
 fill_mode = 3
 texture_progress = ExtResource("5_p676t")
 

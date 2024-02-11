@@ -18,14 +18,14 @@ namespace OpenVoice
         private int Port;
 
         private HttpRequest RequestInstance;
-        private User ActiveUserInstance;
+        private User ActiveUser;
 
-        public Server(string Ip, int Port, User ActiveUserInstance, HttpRequest RequestInstance)
+        public Server(string Ip, int Port, User ActiveUser, HttpRequest RequestInstance)
         {
             this.Ip = Ip;
             this.Port = Port;
 
-            this.ActiveUserInstance = ActiveUserInstance;
+            this.ActiveUser = ActiveUser;
             this.RequestInstance = RequestInstance;
         }
 
@@ -39,7 +39,7 @@ namespace OpenVoice
         {
             Dictionary Data = new Dictionary()
             {
-                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) },
+                { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUser.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) },
                 { "Action", "Authenticate"}
             };
 
@@ -107,7 +107,7 @@ namespace OpenVoice
 
             var token = new Dictionary()
             {
-                {"token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUserInstance.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString()))}
+                {"token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUser.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString()))}
             };
 
             string[] requestHeaders = new string[] { "Content-Type: application/json", Json.Stringify(token) };

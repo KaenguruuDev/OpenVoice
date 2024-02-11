@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -16,15 +15,16 @@ namespace OpenVoice
 
 		AudioEffectRecord? MicRecord;
 
-		public override void _Ready()
+		public void LoadInterface()
 		{
 			// Connecting Signals
 			GetNode<Button>("ServerList/VBox/AddServerItem/AddServer").Pressed += () => { UIButtonAction(0); };
 			GetNode<Button>("AddServerDialog/CenterContainer/HBoxContainer/Add").Pressed += () => { UIButtonAction(1); };
 			GetNode<Button>("AddServerDialog/CenterContainer/HBoxContainer/Cancel").Pressed += () => { UIButtonAction(2); };
 
+			if (!FileAccess.FileExists(OS.GetUserDataDir() + "/servers.dat")) { var f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/servers.dat", FileAccess.ModeFlags.Write, DataSecurity.GetEncryptionKey()); f.StoreString(""); f.Close(); }
 
-			ActiveUser = new User("Kaenguruu");
+			LoadUserData();
 			LoadServerSidebar();
 		}
 
@@ -44,7 +44,7 @@ namespace OpenVoice
 				if (GetNode<TextEdit>("UserInput").HasFocus() && ActiveServer != null)
 				{
 					if (ActiveServer == null || ActiveChannel == null || ActiveUser == null) return;
-					var NewMessage = new Message(ActiveUser.GetUUID(), GetNode<TextEdit>("UserInput").Text, DateTime.Now.Second);
+					var NewMessage = new Message(ActiveUser.GetUUID(), GetNode<TextEdit>("UserInput").Text, ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds());
 					var Result = await ActiveServer.SendMessage(ActiveChannel, NewMessage);
 					if (Result) { GetNode<MessagesController>("MessagesController").PushMessage(NewMessage); }
 				}
@@ -76,10 +76,13 @@ namespace OpenVoice
 					break;
 				// AddServerDialog.Confirm
 				case 1:
-					List<string> Servers = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Read).GetAsText().Split("\n").ToList();
+					var f = FileAccess.OpenEncryptedWithPass("user://servers.dat", FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey());
+					List<string> Servers = f.GetAsText().Split("\n").ToList();
+					f.Close();
+
 					Servers.Add("ip=" + GetNode<LineEdit>("AddServerDialog/IPInput").Text + "/logo=\"\"");
 					string SaveData = ""; foreach (string ServerData in Servers) { if (ServerData != "") SaveData += ServerData + "\n"; }
-					{ using var file = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Write); file.StoreString(SaveData); }
+					{ using var file = FileAccess.OpenEncryptedWithPass("user://servers.dat", FileAccess.ModeFlags.Write, DataSecurity.GetEncryptionKey()); file.StoreString(SaveData); file.Close(); }
 
 					GetNode<Control>("AddServerDialog").Hide();
 					break;
@@ -92,10 +95,21 @@ namespace OpenVoice
 			}
 		}
 
+		private void LoadUserData()
+		{
+			var f = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/sessions/latest.dat", FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey());
+			GetNode<Global>("/root/Global").SetUser(new User(f.GetVar().AsGodotDictionary().Values.ToArray()[0].ToString()));
+			ActiveUser = GetNode<Global>("/root/Global").GetUser();
+			f.Close();
+
+			// Load User Panel
+			GetNode<UserPanel>("UserPanel").LoadPanel();
+		}
 		private void LoadServerSidebar()
 		{
-			using var file = FileAccess.Open("user://servers.dat", FileAccess.ModeFlags.Read);
+			using var file = FileAccess.OpenEncryptedWithPass(OS.GetUserDataDir() + "/servers.dat", FileAccess.ModeFlags.Read, DataSecurity.GetEncryptionKey());
 			string[] Servers = file.GetAsText().Split("\n");
+			file.Close();
 
 			if (Servers.Length == 1) return;
 
