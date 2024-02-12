@@ -40,7 +40,7 @@ namespace OpenVoice
             Dictionary Data = new Dictionary()
             {
                 { "auth", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUser.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString())) },
-                { "Action", "Authenticate"}
+                { "action", "authenticate"}
             };
 
             string jsonData = Json.Stringify(Data);
