@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using Godot;
 using Godot.Collections;
+using System.Drawing.Printing;
 
 #nullable enable
 namespace OpenVoice
@@ -52,16 +53,17 @@ namespace OpenVoice
 
             HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
-                    {
-                        RequestInstance.RequestCompleted -= handler;
+                {
+                    var json = new Json();
+                    json.Parse(body.GetStringFromUtf8());
 
-                        if (responseCode != 200) { tcs.SetResult(false); return; }
+                    RequestInstance.RequestCompleted -= handler;
 
-                        var json = new Json();
-                        json.Parse(body.GetStringFromUtf8());
-                        var response = json.Data.AsGodotDictionary();
-                        tcs.SetResult(true);
-                    };
+                    if (responseCode != 200) { tcs.SetResult(false); return; }
+
+                    var response = json.Data.AsGodotDictionary();
+                    tcs.SetResult(true);
+                };
 
             RequestInstance.RequestCompleted += handler;
             RequestInstance.Request(url, requestHeaders, HttpClient.Method.Post, jsonData);
@@ -72,6 +74,10 @@ namespace OpenVoice
         // Error Handling and JSON Parsing
         private Variant HandleRequestCompleted(long result, long responseCode, string[] headers, byte[] body, TaskCompletionSource<Dictionary> tcs)
         {
+            Console.WriteLine(result);
+            Console.WriteLine(responseCode);
+            Console.WriteLine(headers);
+            Console.WriteLine(body);
             if (responseCode != 200)
             {
                 tcs.SetResult(new Dictionary());
@@ -97,43 +103,60 @@ namespace OpenVoice
         // Returns Server response
         private Task<Dictionary> MakeRequest(string url, HttpClient.Method method, string json = "")
         {
+            Console.WriteLine("Making request...");
             var tcs = new TaskCompletionSource<Dictionary>();
+            Console.WriteLine("Making request to " + url);
 
             if (RequestInstance == null)
             {
+                Console.WriteLine("RequestInstance is null");
                 tcs.SetResult(new Dictionary());
                 return tcs.Task;
             }
 
+            Console.WriteLine("RequestInstance is not null");
             var token = new Dictionary()
             {
                 {"token", Convert.ToBase64String(Encoding.UTF8.GetBytes(ActiveUser.GetUsername() + "-" + DateTime.Now.ToUniversalTime().ToLongTimeString()))}
             };
 
+            Console.WriteLine("Token: " + Json.Stringify(token));
             string[] requestHeaders = new string[] { "Content-Type: application/json", Json.Stringify(token) };
 
+            Console.WriteLine("RequestHeaders: " + requestHeaders);
             HttpRequest.RequestCompletedEventHandler? handler = null;
             handler = (result, responseCode, headers, body) =>
             {
+                Console.WriteLine("Request completed");
                 RequestInstance.RequestCompleted -= handler;
                 HandleRequestCompleted(result, responseCode, headers, body, tcs);
             };
 
+            Console.WriteLine("Handler: " + handler);
             RequestInstance.RequestCompleted += handler;
 
-            if (json != "") RequestInstance.Request(url, requestHeaders, method, json);
+            Console.WriteLine("Requesting...");
+            if (json != "" && method != HttpClient.Method.Get) RequestInstance.Request(url, requestHeaders, method, json);
             else RequestInstance.Request(url, requestHeaders, method);
 
+            Console.WriteLine("Requested!");
             return tcs.Task;
         }
 
         // Gets Channels from Server
         private async Task<bool> SyncChannels()
         {
+            GD.Print("Getting channels");
             var base_url = "http://" + Ip + ":" + Port;
             var url = base_url + "/channels";
-            var result = await MakeRequest(url, HttpClient.Method.Get);
-            var channels = result["channels"].AsGodotArray();
+            Console.WriteLine("Getting channels...");
+            var response = await MakeRequest(url, HttpClient.Method.Get);
+            Console.WriteLine("Got channels!");
+            Console.WriteLine(response);
+
+            if (response.Count <= 0) return false;
+
+            var channels = response["channels"].AsGodotArray();
 
             for (int i = 0; i < channels.Count; i++)
             {
@@ -147,7 +170,7 @@ namespace OpenVoice
                 Channels.Add(new Channel(i, (string)channel["name"], Msgs));
             }
 
-            return result.Count > 0;
+            return true;
         }
 
         // Gets Userdata from Server
